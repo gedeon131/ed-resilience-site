@@ -1,6 +1,6 @@
 ---
 title: Continuity plan for a civil society organisation
-client: Non-governmental organisation (example)
+client: Non-governmental organisation
 summary: Support in drafting and testing a continuity plan covering essential activities.
 order: 2
 featured: true

@@ -1,6 +1,6 @@
 ---
 title: Risk management training for senior staff
-client: Public institution (example)
+client: Public institution
 summary: Training programme for the managers of a public administration to structure how risks are identified and monitored.
 order: 1
 featured: true

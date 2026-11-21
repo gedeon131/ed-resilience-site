@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { contactEmail } from '../../config/site';
 import {
   getCurrentPath,
   getLangFromUrl,
@@ -10,6 +11,12 @@ import {
   type UiKey,
 } from '../../i18n/utils';
 
+interface Props {
+  /** Transparent au-dessus du hero, opaque dès que la page défile. */
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -36,13 +43,32 @@ const links = items.map(({ key, label }) => {
 const ctaHref = getLocalizedPath('contact', lang);
 ---
 
-<header class="sticky top-0 z-40 border-b border-gold-500/20 bg-navy-900/95 backdrop-blur">
+<header
+  class:list={[
+    'site-header top-0 z-40 w-full border-b border-gold-500/20 bg-navy-900/95 backdrop-blur transition-colors duration-300',
+    overlay ? 'fixed' : 'sticky',
+  ]}
+  data-overlay={overlay ? '' : undefined}
+>
   <a
     href="#contenu"
     class="sr-only rounded-md bg-gold-300 px-4 py-2 text-sm font-medium text-navy-900 focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
   >
     {t('nav.skip')}
   </a>
+
+  <!-- Barre utilitaire (grands écrans) -->
+  <div class="hidden border-b border-gold-500/15 md:block">
+    <div class="mx-auto flex h-9 max-w-7xl items-center justify-between px-4 text-[0.6875rem] text-navy-100/75 md:px-8">
+      <p class="tracking-[0.25em] uppercase">{t('site.pillars')}</p>
+      <a
+        href={`mailto:${contactEmail}`}
+        class="tracking-[0.05em] text-navy-100/75 no-underline transition-colors hover:text-gold-300"
+      >
+        {contactEmail}
+      </a>
+    </div>
+  </div>
 
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-8">
     <a href={getLocalizedPath('home', lang)} class="group flex items-center gap-3 no-underline">
@@ -166,6 +192,7 @@ const ctaHref = getLocalizedPath('contact', lang);
 
     const setOpen = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
+      toggle.closest('header')?.toggleAttribute('data-menu-open', open);
       panel.classList.toggle('hidden', !open);
       iconOpen?.classList.toggle('hidden', open);
       iconClose?.classList.toggle('hidden', !open);
@@ -189,4 +216,20 @@ const ctaHref = getLocalizedPath('contact', lang);
       if (e.matches) setOpen(false);
     });
   }
+
+  // Header superposé : devient opaque dès que la page défile
+  const header = document.querySelector<HTMLElement>('.site-header[data-overlay]');
+  if (header) {
+    const update = () => header.toggleAttribute('data-scrolled', window.scrollY > 24);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
 </script>
+
+<style>
+  .site-header[data-overlay]:not([data-scrolled]):not([data-menu-open]) {
+    background-color: transparent;
+    border-color: transparent;
+    backdrop-filter: none;
+  }
+</style>

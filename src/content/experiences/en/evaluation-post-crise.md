@@ -1,6 +1,6 @@
 ---
 title: Post-disaster needs assessment
-client: Institutional partner (example)
+client: Institutional partner
 summary: Methodological support for a recovery needs assessment and the prioritisation of interventions.
 order: 3
 featured: true

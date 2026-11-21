@@ -1,16 +1,13 @@
 ---
 import Badge from '../ui/Badge.astro';
 import Button from '../ui/Button.astro';
-import Card from '../ui/Card.astro';
 import Section from '../ui/Section.astro';
 import { getLocalizedEntries } from '../../lib/content';
 import { getDetailPath, getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const services = (await getLocalizedEntries('services', lang)).filter(
-  ({ entry }) => entry.data.featured,
-);
+const services = await getLocalizedEntries('services', lang);
 
 const pillarLabel = {
   risk: t('pillar.risk.title'),
@@ -26,46 +23,50 @@ const pillarLabel = {
   title={t('home.services.title')}
   intro={t('home.services.intro')}
 >
-  <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="list">
-    {services.map(({ slug, entry, fallback }) => (
-      <li class="md:last:odd:col-span-2 lg:last:odd:col-span-1">
-        <Card tone="light" as="div" class="group hover:shadow-md">
-          <div class="mb-5 flex flex-wrap items-center gap-2">
-            {entry.data.pillar && <Badge>{pillarLabel[entry.data.pillar]}</Badge>}
-            {fallback && (
-              <span lang="fr" class="text-xs text-muted italic">
-                {t('content.fallback')}
-              </span>
-            )}
-          </div>
+  <!-- Liste numérotée façon cabinet de conseil : une ligne par service -->
+  <ol class="border-t border-navy-700/20" role="list">
+    {services.map(({ slug, entry, fallback }, index) => (
+      <li data-reveal class="group relative border-b border-navy-700/20">
+        <div class="grid gap-3 py-8 transition-[padding,background-color] duration-300 group-hover:bg-paper/70 md:grid-cols-12 md:items-center md:gap-8 md:px-4 md:group-hover:px-8">
+          <span class="font-display text-2xl font-semibold text-gold-700 md:col-span-1">
+            {String(index + 1).padStart(2, '0')}
+          </span>
           <h3
-            class="text-lg font-semibold text-navy-700 md:text-xl"
+            class="text-xl font-semibold text-navy-700 md:col-span-4 md:text-2xl"
             lang={fallback ? 'fr' : undefined}
           >
             <a
               href={getDetailPath('services', slug, lang)}
-              class="no-underline after:absolute after:inset-0 hover:text-navy-500"
+              class="no-underline after:absolute after:inset-0"
             >
               {entry.data.title}
             </a>
           </h3>
-          <p class="mt-3 flex-1 text-muted" lang={fallback ? 'fr' : undefined}>
+          <p class="text-muted md:col-span-5" lang={fallback ? 'fr' : undefined}>
             {entry.data.summary}
+            {fallback && (
+              <span lang="fr" class="mt-1 block text-xs italic">
+                {t('content.fallback')}
+              </span>
+            )}
           </p>
-          <span
-            class="mt-6 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.15em] text-gold-700 uppercase"
-            aria-hidden="true"
-          >
-            {t('home.services.more')}
-            <span class="transition-transform group-hover:translate-x-1">→</span>
-          </span>
-        </Card>
+          <div class="flex items-center justify-between gap-4 md:col-span-2 md:justify-end">
+            {entry.data.pillar && <Badge>{pillarLabel[entry.data.pillar]}</Badge>}
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-full border border-navy-700/30 text-navy-700 transition-colors group-hover:border-navy-700 group-hover:bg-navy-700 group-hover:text-paper"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </div>
+        </div>
       </li>
     ))}
-  </ul>
-  <div class="mt-12 text-center">
-    <Button href={getLocalizedPath('services', lang)} variant="outline">
+  </ol>
+  <div class="mt-12">
+    <Button href={getLocalizedPath('services', lang)} variant="primary">
       {t('home.services.all')}
+      <span aria-hidden="true">→</span>
     </Button>
   </div>
 </Section>
