@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@import "@fontsource/cinzel/500.css";
-@import "@fontsource/cinzel/600.css";
-@import "@fontsource/montserrat/400.css";
-@import "@fontsource/montserrat/400-italic.css";
-@import "@fontsource/montserrat/500.css";
-@import "@fontsource/montserrat/600.css";
-@import "@fontsource/cormorant-garamond/400-italic.css";
-@import "@fontsource/cormorant-garamond/500-italic.css";
+@import '@fontsource/cinzel/500.css';
+@import '@fontsource/cinzel/600.css';
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/400-italic.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import '@fontsource/cormorant-garamond/500-italic.css';
 
 @theme {
   --color-navy-900: #0a1f35;
@@ -23,9 +23,9 @@
   --color-text: #1e2a36;
   --color-muted: #5b6875;
 
-  --font-display: "Cinzel", "Times New Roman", serif;
-  --font-sans: "Montserrat", system-ui, sans-serif;
-  --font-accent: "Cormorant Garamond", Georgia, serif;
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-sans: 'Montserrat', system-ui, sans-serif;
+  --font-accent: 'Cormorant Garamond', Georgia, serif;
 }
 
 @layer base {

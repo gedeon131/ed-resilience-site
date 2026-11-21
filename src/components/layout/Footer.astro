@@ -1,0 +1,108 @@
+---
+import { contactEmail, socialLinks } from '../../config/site';
+import {
+  getLangFromUrl,
+  getLocalizedPath,
+  useTranslations,
+  type RouteKey,
+  type UiKey,
+} from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const siteLinks: { key: RouteKey; label: UiKey }[] = [
+  { key: 'home', label: 'nav.home' },
+  { key: 'about', label: 'nav.about' },
+  { key: 'services', label: 'nav.services' },
+  { key: 'experiences', label: 'nav.experiences' },
+  { key: 'contact', label: 'nav.contact' },
+];
+
+const legalLinks: { key: RouteKey; label: UiKey }[] = [
+  { key: 'legal', label: 'nav.legal' },
+  { key: 'privacy', label: 'nav.privacy' },
+];
+
+const headingClass = 'mb-4 text-xs font-semibold tracking-[0.2em] text-gold-300 uppercase';
+const linkClass = 'text-sm text-navy-100 no-underline transition-colors hover:text-gold-300';
+---
+
+<footer class="bg-navy-900 text-navy-100">
+  <div
+    class="h-px bg-linear-to-r from-gold-700 via-gold-300 to-gold-500 opacity-60"
+    aria-hidden="true"
+  ></div>
+
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-2 md:px-8 lg:grid-cols-4">
+    <div class="lg:col-span-1">
+      <p class="font-display text-lg font-semibold tracking-[0.06em] text-paper">
+        {t('site.name')}
+      </p>
+      <p class="mt-2 text-[0.6875rem] tracking-[0.2em] text-gold-300 uppercase">
+        {t('site.pillars')}
+      </p>
+      <p class="mt-4 font-accent text-lg text-gold-300 italic">{t('site.tagline')}</p>
+      <!-- PLACEHOLDER -->
+      <p class="mt-4 text-sm leading-relaxed text-navy-100/80">{t('footer.description')}</p>
+    </div>
+
+    <nav aria-label={t('footer.nav')}>
+      <h2 class:list={[headingClass, 'font-sans']}>{t('footer.nav')}</h2>
+      <ul class="space-y-2.5">
+        {siteLinks.map(({ key, label }) => (
+          <li>
+            <a href={getLocalizedPath(key, lang)} class={linkClass}>
+              {t(label)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class:list={[headingClass, 'font-sans']}>{t('footer.contact')}</h2>
+      <ul class="space-y-2.5">
+        <li>
+          <a href={`mailto:${contactEmail}`} class:list={[linkClass, 'break-all']}>
+            {contactEmail}
+          </a>
+        </li>
+      </ul>
+      {socialLinks.length > 0 && (
+        <>
+          <h2 class:list={[headingClass, 'mt-8 font-sans']}>{t('footer.social')}</h2>
+          <ul class="flex flex-wrap gap-4">
+            {socialLinks.map(({ name, href }) => (
+              <li>
+                <a href={href} class={linkClass} rel="noopener noreferrer" target="_blank">
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+
+    <nav aria-label={t('footer.legal')}>
+      <h2 class:list={[headingClass, 'font-sans']}>{t('footer.legal')}</h2>
+      <ul class="space-y-2.5">
+        {legalLinks.map(({ key, label }) => (
+          <li>
+            <a href={getLocalizedPath(key, lang)} class={linkClass}>
+              {t(label)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="border-t border-navy-800">
+    <p class="mx-auto max-w-7xl px-4 py-6 text-xs text-navy-100/70 md:px-8">
+      {`© ${year} ${t('site.name')}. ${t('footer.rights')}`}
+    </p>
+  </div>
+</footer>

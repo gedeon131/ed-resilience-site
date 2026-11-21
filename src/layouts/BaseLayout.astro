@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
-import { getAlternatePath, getLangFromUrl } from '../i18n/utils';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import WhatsAppButton from '../components/layout/WhatsAppButton.astro';
+import { getAlternatePath, getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   title: string;
@@ -9,12 +12,14 @@ interface Props {
 
 const { title, description } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const site = Astro.site ?? new URL('https://edresilienceconsulting.com');
 const canonical = new URL(Astro.url.pathname, site);
 const altFr = new URL(getAlternatePath(Astro.url, 'fr'), site);
 const altEn = new URL(getAlternatePath(Astro.url, 'en'), site);
-const fullTitle = `${title} | ED Resilience Consulting`;
-// TODO: Header, Footer, WhatsAppButton et composant <SEO /> complet (étapes 2 et 7 du §10)
+const siteName = t('site.name');
+const fullTitle = `${title} | ${siteName}`;
+// TODO: extraire un composant <SEO /> complet (image OG, JSON-LD) à l'étape 7 du §10
 ---
 
 <!doctype html>
@@ -22,6 +27,7 @@ const fullTitle = `${title} | ED Resilience Consulting`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A1F35" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -29,13 +35,25 @@ const fullTitle = `${title} | ED Resilience Consulting`;
     <link rel="alternate" hreflang="fr" href={altFr} />
     <link rel="alternate" hreflang="en" href={altEn} />
     <link rel="alternate" hreflang="x-default" href={altFr} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'fr' ? 'en_US' : 'fr_FR'} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
     <meta name="generator" content={Astro.generator} />
   </head>
-  <body class="min-h-screen">
-    <slot />
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main id="contenu" tabindex="-1" class="flex-1 focus:outline-none">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton />
   </body>
 </html>

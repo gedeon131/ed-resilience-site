@@ -9,6 +9,7 @@ Claude Code met cette liste à jour à chaque texte ou image provisoire ajouté.
 - [ ] Expériences / missions réalisées / références
 - [ ] Validation de la signature FR : « Bâtir la résilience. Renforcer l'avenir. »
 - [ ] Traductions anglaises
+- [ ] Phrase de présentation du footer (`footer.description` dans `src/i18n/fr.json` et `en.json`, texte provisoire)
 
 ## Visuels
 - [ ] Logo en SVG ou PNG transparent

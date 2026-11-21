@@ -1,0 +1,27 @@
+---
+import { getAlternatePath, getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const target = lang === 'fr' ? 'en' : 'fr';
+const href = getAlternatePath(Astro.url, target);
+---
+
+<a
+  href={href}
+  hreflang={target}
+  lang={target}
+  aria-label={`${t('lang.label')} : ${t('lang.switch')}`}
+  class:list={[
+    'inline-flex items-center gap-2 rounded-md border border-gold-500/40 px-3 py-1.5 text-xs font-medium tracking-[0.2em] text-gold-300 uppercase transition-colors hover:border-gold-300 hover:text-paper',
+    className,
+  ]}
+>
+  <span aria-hidden="true">{target}</span>
+  <span class="sr-only">{t('lang.switch')}</span>
+</a>
