@@ -5,11 +5,13 @@
 export const contactEmail = 'Ernestia.d@edresilienceconsulting.com';
 
 /** Numéro WhatsApp au format international sans + ni espaces (ex. 50932730712). */
-// TODO(client): confirmer l'indicatif (+509 ?) du 3273-0712, puis renseigner PUBLIC_WHATSAPP_NUMBER dans .env
-export const whatsappNumber: string = (import.meta.env.PUBLIC_WHATSAPP_NUMBER ?? '').replace(
-  /\D/g,
-  '',
-);
+// Numéro confirmé : +509 3273-0712 (Haïti). PUBLIC_WHATSAPP_NUMBER permet de le remplacer sans toucher au code.
+export const whatsappNumber: string = (
+  import.meta.env.PUBLIC_WHATSAPP_NUMBER || '50932730712'
+).replace(/\D/g, '');
+
+/** Numéro affiché (téléphone et WhatsApp). */
+export const phoneDisplay = '+509 3273-0712';
 
 /** Lien wa.me avec message prérempli, ou chaîne vide si le numéro n'est pas configuré. */
 export function getWhatsAppHref(message: string): string {
@@ -18,8 +20,8 @@ export function getWhatsAppHref(message: string): string {
     : '';
 }
 
-/** Lien de réservation Cal.com ou Calendly. */
-// TODO(client): choisir l'outil de rendez-vous et renseigner PUBLIC_BOOKING_URL
+/** Lien de réservation Cal.com (ex. https://cal.com/ed-resilience/30min). */
+// TODO(client): créer le compte Cal.com et renseigner PUBLIC_BOOKING_URL (ou la valeur ci-dessous)
 export const bookingUrl: string = import.meta.env.PUBLIC_BOOKING_URL ?? '';
 
 /**

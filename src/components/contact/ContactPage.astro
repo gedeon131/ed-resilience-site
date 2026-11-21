@@ -6,7 +6,13 @@
 import ContactForm from '../forms/ContactForm.astro';
 import QuoteForm from '../forms/QuoteForm.astro';
 import PageHeader from '../ui/PageHeader.astro';
-import { bookingUrl, contactEmail, getWhatsAppHref, socialLinks } from '../../config/site';
+import {
+  bookingUrl,
+  contactEmail,
+  getWhatsAppHref,
+  phoneDisplay,
+  socialLinks,
+} from '../../config/site';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -66,9 +72,10 @@ const channelLink =
                   rel="noopener noreferrer"
                   class={channelLink}
                 >
-                  {t('contact.channels.whatsappAction')}
+                  {phoneDisplay}
                   <span aria-hidden="true">→</span>
                 </a>
+                <p class="mt-1 text-sm text-navy-100/70">{t('contact.channels.whatsappAction')}</p>
               </dd>
             </div>
           )}

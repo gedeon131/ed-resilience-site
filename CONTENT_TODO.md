@@ -29,9 +29,10 @@ Claude Code met cette liste à jour à chaque texte ou image provisoire ajouté.
 - [ ] Photos de missions / ateliers
 
 ## Informations
-- [ ] Indicatif téléphonique (+509 ?)
+- [x] Indicatif téléphonique : +509 3273-0712 (WhatsApp actif)
 - [ ] Liens réseaux sociaux
-- [ ] Outil de rendez-vous (Cal.com ou Calendly)
+- [x] Outil de rendez-vous : Cal.com
+- [ ] Lien de réservation Cal.com (ex. https://cal.com/…)
 - [ ] Mentions légales : raison sociale, adresse, numéro d'enregistrement, hébergeur définitif, nom de l'agence (champs « [À compléter] » dans `src/content/legal/`)
 
 ## Technique (agence)

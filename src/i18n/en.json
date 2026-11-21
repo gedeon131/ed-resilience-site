@@ -186,7 +186,7 @@
   "form.submitQuote": "Send quote request",
   "form.sending": "Sending…",
   "form.success": "Thank you, your message has been sent. We will get back to you shortly.",
-  "form.error": "Sending failed. Please try again or email us directly.",
+  "form.error": "Sending failed. Please try again or email us directly:",
   "form.inactive": "The form is not active yet. Please email us directly:",
   "form.invalid": "Please check the highlighted fields.",
   "legal.title": "Legal notice",

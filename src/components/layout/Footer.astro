@@ -1,5 +1,5 @@
 ---
-import { contactEmail, socialLinks } from '../../config/site';
+import { contactEmail, getWhatsAppHref, phoneDisplay, socialLinks } from '../../config/site';
 import {
   getLangFromUrl,
   getLocalizedPath,
@@ -11,6 +11,7 @@ import {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const whatsappHref = getWhatsAppHref(t('whatsapp.message'));
 
 const siteLinks: { key: RouteKey; label: UiKey }[] = [
   { key: 'home', label: 'nav.home' },
@@ -35,7 +36,7 @@ const linkClass = 'text-sm text-navy-100 no-underline transition-colors hover:te
     aria-hidden="true"
   ></div>
 
-  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-2 md:px-8 lg:grid-cols-4">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-2 md:px-8 lg:grid-cols-[1.2fr_0.8fr_1.3fr_0.8fr]">
     <div class="lg:col-span-1">
       <p class="font-display text-lg font-semibold tracking-[0.06em] text-paper">
         {t('site.name')}
@@ -65,10 +66,20 @@ const linkClass = 'text-sm text-navy-100 no-underline transition-colors hover:te
       <h2 class:list={[headingClass, 'font-sans']}>{t('footer.contact')}</h2>
       <ul class="space-y-2.5">
         <li>
-          <a href={`mailto:${contactEmail}`} class:list={[linkClass, 'break-all']}>
+          <a
+            href={`mailto:${contactEmail}`}
+            class:list={[linkClass, 'break-all lg:break-normal lg:whitespace-nowrap']}
+          >
             {contactEmail}
           </a>
         </li>
+        {whatsappHref && (
+          <li>
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" class={linkClass}>
+              WhatsApp : {phoneDisplay}
+            </a>
+          </li>
+        )}
       </ul>
       {socialLinks.length > 0 && (
         <>

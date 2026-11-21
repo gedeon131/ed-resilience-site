@@ -186,7 +186,7 @@
   "form.submitQuote": "Envoyer la demande de devis",
   "form.sending": "Envoi en cours…",
   "form.success": "Merci, votre message a bien été envoyé. Nous vous répondrons rapidement.",
-  "form.error": "L'envoi a échoué. Réessayez ou écrivez-nous directement par e-mail.",
+  "form.error": "L'envoi a échoué. Réessayez ou écrivez-nous directement par e-mail :",
   "form.inactive": "Le formulaire n'est pas encore actif. Écrivez-nous directement par e-mail :",
   "form.invalid": "Merci de vérifier les champs signalés.",
   "legal.title": "Mentions légales",
