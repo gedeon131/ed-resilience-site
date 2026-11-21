@@ -1,0 +1,44 @@
+# Préversion du site sur GitHub Pages, à chaque push sur main.
+# URL : https://gedeon131.github.io/ed-resilience-site/
+name: Préversion GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: withastro/action@v3
+        with:
+          node-version: 24
+          package-manager: pnpm@12.21.0
+        env:
+          SITE_URL: https://gedeon131.github.io
+          BASE_PATH: /ed-resilience-site
+          PUBLIC_NOINDEX: 'true'
+          # À définir dans Settings > Secrets and variables > Actions > Variables
+          PUBLIC_WHATSAPP_NUMBER: ${{ vars.PUBLIC_WHATSAPP_NUMBER }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import WhatsAppButton from '../components/layout/WhatsAppButton.astro';
-import { getAlternatePath, getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getAlternatePath, getLangFromUrl, useTranslations, withBase } from '../i18n/utils';
 
 interface Props {
   title: string;
@@ -19,6 +19,8 @@ const altFr = new URL(getAlternatePath(Astro.url, 'fr'), site);
 const altEn = new URL(getAlternatePath(Astro.url, 'en'), site);
 const siteName = t('site.name');
 const fullTitle = `${title} | ${siteName}`;
+// Préversions (GitHub Pages) : ne pas indexer, pour ne pas concurrencer le futur domaine
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
 // TODO: extraire un composant <SEO /> complet (image OG, JSON-LD) à l'étape 7 du §10
 ---
 
@@ -28,14 +30,15 @@ const fullTitle = `${title} | ${siteName}`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0A1F35" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="fr" href={altFr} />
     <link rel="alternate" hreflang="en" href={altEn} />
     <link rel="alternate" hreflang="x-default" href={altFr} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />

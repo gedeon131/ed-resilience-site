@@ -7,3 +7,6 @@ dist/
 .DS_Store
 .vscode/
 *.log
+
+# Documents client (brief, questionnaire) : gardés en local, jamais publiés (dépôt public)
+docs/

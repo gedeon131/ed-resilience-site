@@ -1,8 +1,10 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import {
+  getCurrentPath,
   getLangFromUrl,
   getLocalizedPath,
+  getRoutePath,
   useTranslations,
   type RouteKey,
   type UiKey,
@@ -19,12 +21,11 @@ const items: { key: RouteKey; label: UiKey }[] = [
   { key: 'contact', label: 'nav.contact' },
 ];
 
-const normalize = (p: string) => p.replace(/\/$/, '') || '/';
-const current = normalize(Astro.url.pathname);
+const current = getCurrentPath(Astro.url);
 
 const links = items.map(({ key, label }) => {
   const href = getLocalizedPath(key, lang);
-  const target = normalize(href);
+  const target = getRoutePath(key, lang);
   const isHome = key === 'home';
   const active = isHome
     ? current === target

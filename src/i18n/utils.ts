@@ -24,9 +24,35 @@ export const routes = {
 
 export type RouteKey = keyof typeof routes;
 
+/**
+ * Préfixe de déploiement (`base` d'Astro) : vide en production sur le domaine,
+ * `/ed-resilience-site` sur la préversion GitHub Pages.
+ */
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/** Ajoute le préfixe de déploiement à un chemin interne commençant par `/`. */
+export function withBase(path: string): string {
+  return `${base}${path}`;
+}
+
+/** Retire le préfixe de déploiement d'un chemin d'URL. */
+export function stripBase(pathname: string): string {
+  if (base && (pathname === base || pathname.startsWith(`${base}/`))) {
+    return pathname.slice(base.length) || '/';
+  }
+  return pathname;
+}
+
+const normalize = (p: string) => p.replace(/\/$/, '') || '/';
+const isEnglishPath = (p: string) => /^\/en(\/|$)/.test(p);
+
+/** Chemin de la page courante sans préfixe de déploiement ni slash final. */
+export function getCurrentPath(url: URL): string {
+  return normalize(stripBase(url.pathname));
+}
+
 export function getLangFromUrl(url: URL): Lang {
-  const [, segment] = url.pathname.split('/');
-  return segment === 'en' ? 'en' : defaultLang;
+  return isEnglishPath(getCurrentPath(url)) ? 'en' : defaultLang;
 }
 
 export function useTranslations(lang: Lang) {
@@ -35,21 +61,26 @@ export function useTranslations(lang: Lang) {
   };
 }
 
+/** Chemin de la route sans préfixe (pour comparer avec getCurrentPath). */
+export function getRoutePath(key: RouteKey, lang: Lang): string {
+  return normalize(routes[key][lang]);
+}
+
+/** URL de la route, préfixe de déploiement inclus (pour les `href`). */
 export function getLocalizedPath(key: RouteKey, lang: Lang): string {
-  return routes[key][lang];
+  return withBase(routes[key][lang]);
 }
 
 /** Retrouve l'équivalent d'une URL dans l'autre langue (pour le sélecteur de langue). */
 export function getAlternatePath(url: URL, target: Lang): string {
-  const path = url.pathname.replace(/\/$/, '') || '/';
+  const path = getCurrentPath(url);
   for (const entry of Object.values(routes)) {
     for (const p of Object.values(entry)) {
-      const normalized = p.replace(/\/$/, '') || '/';
-      if (normalized === path) return entry[target];
+      if (normalize(p) === path) return withBase(entry[target]);
     }
   }
   // Pages de détail (ex. /services/xxx ↔ /en/services/xxx)
-  if (target === 'en' && !path.startsWith('/en')) return `/en${path}`;
-  if (target === 'fr' && path.startsWith('/en')) return path.replace(/^\/en/, '') || '/';
-  return routes.home[target];
+  if (target === 'en' && !isEnglishPath(path)) return withBase(`/en${path}`);
+  if (target === 'fr' && isEnglishPath(path)) return withBase(path.replace(/^\/en/, '') || '/');
+  return withBase(routes.home[target]);
 }
