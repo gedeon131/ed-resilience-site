@@ -28,6 +28,46 @@
   --font-accent: 'Cormorant Garamond', Georgia, serif;
 }
 
+/* Texte long issu du Markdown (pages de détail) */
+@layer components {
+  .prose-ed {
+    @apply text-base text-text md:text-lg;
+
+    & > * + * {
+      @apply mt-5;
+    }
+
+    & h2 {
+      @apply mt-12 font-display text-2xl leading-tight font-semibold text-navy-700 md:text-3xl;
+    }
+
+    & h3 {
+      @apply mt-8 text-lg font-semibold text-navy-700;
+    }
+
+    & ul {
+      @apply space-y-3 pl-0;
+    }
+
+    & ul > li {
+      @apply relative pl-7;
+    }
+
+    & ul > li::before {
+      content: '';
+      @apply absolute top-[0.7em] left-0 size-1.5 rotate-45 bg-gold-500;
+    }
+
+    & a {
+      @apply text-navy-700 underline decoration-gold-500 underline-offset-4 hover:text-navy-500;
+    }
+
+    & strong {
+      @apply font-semibold text-navy-700;
+    }
+  }
+}
+
 @layer base {
   html {
     @apply bg-paper font-sans text-text antialiased;

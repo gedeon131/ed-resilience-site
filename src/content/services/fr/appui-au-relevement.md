@@ -9,4 +9,15 @@ placeholder: true
 
 <!-- PLACEHOLDER : texte provisoire, à remplacer par la description fournie par la cliente -->
 
-Évaluation des besoins post-crise, planification du relèvement et suivi de la mise en œuvre avec les parties prenantes.
+Après une crise, chaque décision compte. Nous accompagnons les organisations et leurs partenaires pour évaluer les besoins, planifier la reprise et reconstruire sur des bases plus solides.
+
+## Ce que nous faisons
+
+- Évaluation des besoins post-crise
+- Planification du relèvement avec les parties prenantes
+- Suivi de la mise en œuvre et ajustement des actions
+- Capitalisation des enseignements pour mieux se préparer
+
+## Ce que vous obtenez
+
+Une stratégie de relèvement claire, partagée par les acteurs concernés, et des capacités renforcées pour faire face aux crises suivantes.

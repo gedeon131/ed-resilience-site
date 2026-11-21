@@ -1,0 +1,88 @@
+---
+/**
+ * En-tête des pages intérieures : fil d'Ariane, surtitre, titre H1 et introduction, sur fond marine.
+ */
+import { getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  intro?: string;
+  /** Étapes après « Accueil » ; la dernière est la page courante (sans lien). */
+  breadcrumbs?: Crumb[];
+}
+
+const { title, eyebrow, intro, breadcrumbs = [] } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const crumbs: Crumb[] = [
+  { label: t('nav.home'), href: getLocalizedPath('home', lang) },
+  ...breadcrumbs,
+];
+---
+
+<section class="relative isolate overflow-hidden bg-navy-900 text-navy-100">
+  <div
+    class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_90%_0%,var(--color-navy-700)_0%,transparent_55%)]"
+    aria-hidden="true"
+  ></div>
+  <svg
+    class="pointer-events-none absolute -right-32 -bottom-64 -z-10 size-[36rem] text-gold-300 opacity-[0.06]"
+    viewBox="0 0 200 200"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="0.6"
+    aria-hidden="true"
+  >
+    <circle cx="100" cy="100" r="95"></circle>
+    <ellipse cx="100" cy="100" rx="45" ry="95"></ellipse>
+    <ellipse cx="100" cy="100" rx="75" ry="95"></ellipse>
+    <path d="M12 65h176M5 100h190M12 135h176"></path>
+  </svg>
+
+  <div class="mx-auto max-w-7xl px-4 pt-12 pb-16 md:px-8 md:pt-16 md:pb-24">
+    <nav aria-label={t('breadcrumb.label')}>
+      <ol class="flex flex-wrap items-center gap-2 text-xs tracking-[0.15em] text-navy-100/70 uppercase">
+        {crumbs.map((crumb, index) => (
+          <li class="flex items-center gap-2">
+            {index > 0 && (
+              <span aria-hidden="true" class="text-gold-500">
+                /
+              </span>
+            )}
+            {crumb.href && index < crumbs.length - 1 ? (
+              <a href={crumb.href} class="text-navy-100/70 no-underline hover:text-gold-300">
+                {crumb.label}
+              </a>
+            ) : (
+              <span aria-current="page" class="text-gold-300">
+                {crumb.label}
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <div class="mt-10 max-w-4xl md:mt-14">
+      {eyebrow && (
+        <p class="mb-5 flex items-center gap-4 text-xs font-semibold tracking-[0.2em] text-gold-300 uppercase">
+          <span class="h-px w-10 bg-gold-500" aria-hidden="true"></span>
+          {eyebrow}
+        </p>
+      )}
+      <h1 class="text-3xl leading-[1.1] text-paper sm:text-4xl lg:text-6xl">{title}</h1>
+      {intro && <p class="mt-6 max-w-2xl text-base text-navy-100/85 md:text-lg">{intro}</p>}
+      <slot />
+    </div>
+  </div>
+  <div
+    class="h-px bg-linear-to-r from-transparent via-gold-300/70 to-transparent"
+    aria-hidden="true"
+  ></div>
+</section>

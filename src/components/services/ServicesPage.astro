@@ -1,0 +1,37 @@
+---
+/**
+ * Page liste des services, partagée par /services et /en/services.
+ */
+import Approach from './Approach.astro';
+import ServiceList from './ServiceList.astro';
+import CallToAction from '../ui/CallToAction.astro';
+import PageHeader from '../ui/PageHeader.astro';
+import Section from '../ui/Section.astro';
+import { getLocalizedEntries } from '../../lib/content';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const services = await getLocalizedEntries('services', lang);
+---
+
+<PageHeader
+  eyebrow={t('services.eyebrow')}
+  title={t('services.heading')}
+  intro={t('services.intro')}
+  breadcrumbs={[{ label: t('services.title') }]}
+/>
+
+<Section
+  id="liste"
+  tone="paper"
+  eyebrow={t('services.list.eyebrow')}
+  title={t('services.list.title')}
+  intro={t('services.list.intro')}
+>
+  <ServiceList items={services} tone="paper" />
+</Section>
+
+<Approach tone="tint" />
+
+<CallToAction />

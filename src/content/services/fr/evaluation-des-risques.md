@@ -9,4 +9,15 @@ placeholder: true
 
 <!-- PLACEHOLDER : texte provisoire, à remplacer par la description fournie par la cliente -->
 
-Nous réalisons des diagnostics de vulnérabilité, des cartographies des risques et des plans de réduction adaptés à votre contexte institutionnel.
+Anticiper commence par une vision claire des risques. Nous aidons votre organisation à identifier les menaces naturelles, opérationnelles, financières ou institutionnelles, à en mesurer les conséquences et à décider où agir en priorité.
+
+## Ce que nous faisons
+
+- Diagnostic de vulnérabilité de l'organisation et de ses activités essentielles
+- Cartographie des risques et matrice de criticité
+- Plans de réduction des risques, réalistes et chiffrés
+- Mise en place d'indicateurs de suivi et d'alerte
+
+## Ce que vous obtenez
+
+Un registre des risques partagé, une feuille de route priorisée et des responsables identifiés pour chaque action. Vos équipes disposent d'outils simples pour mettre à jour l'analyse dans le temps.

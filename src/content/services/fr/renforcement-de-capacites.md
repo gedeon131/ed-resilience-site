@@ -9,4 +9,15 @@ placeholder: true
 
 <!-- PLACEHOLDER : texte provisoire, à remplacer par la description fournie par la cliente -->
 
-Ateliers, formations sur mesure et accompagnement des équipes dirigeantes pour ancrer une culture de la préparation au sein de votre institution.
+Une institution résiliente repose sur des personnes préparées. Nous concevons des parcours de formation et d'accompagnement qui renforcent durablement les compétences de vos équipes, du terrain à la direction.
+
+## Ce que nous faisons
+
+- Analyse des besoins en compétences
+- Formations sur mesure, ateliers pratiques et mises en situation
+- Accompagnement des équipes dirigeantes dans la prise de décision en situation de crise
+- Création de guides, procédures et supports réutilisables
+
+## Ce que vous obtenez
+
+Des équipes plus autonomes, une culture de la préparation partagée et des outils que votre organisation peut transmettre à ses nouveaux collaborateurs.

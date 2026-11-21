@@ -1,0 +1,69 @@
+---
+/**
+ * Liste numérotée de services, façon cabinet de conseil : une ligne par service, entièrement cliquable.
+ */
+import Badge from '../ui/Badge.astro';
+import type { LocalizedEntry } from '../../lib/content';
+import { getDetailPath, getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  items: LocalizedEntry<'services'>[];
+  /** Fond de la section qui contient la liste (adapte la couleur de survol). */
+  tone?: 'paper' | 'tint';
+}
+
+const { items, tone = 'tint' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const pillarLabel = {
+  risk: t('pillar.risk.title'),
+  resilience: t('pillar.resilience.title'),
+  recovery: t('pillar.recovery.title'),
+};
+---
+
+<ol class="border-t border-navy-700/20" role="list">
+  {items.map(({ slug, entry, fallback }, index) => (
+    <li data-reveal class="group relative border-b border-navy-700/20">
+      <div
+        class:list={[
+          'grid gap-3 py-8 transition-[padding,background-color] duration-300 md:grid-cols-12 md:items-center md:gap-8 md:px-4 md:group-hover:px-8',
+          tone === 'tint' ? 'group-hover:bg-paper/70' : 'group-hover:bg-navy-100/60',
+        ]}
+      >
+        <span class="font-display text-2xl font-semibold text-gold-700 md:col-span-1">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <h3
+          class="text-xl font-semibold text-navy-700 md:col-span-4 md:text-2xl"
+          lang={fallback ? 'fr' : undefined}
+        >
+          <a
+            href={getDetailPath('services', slug, lang)}
+            class="no-underline after:absolute after:inset-0"
+          >
+            {entry.data.title}
+          </a>
+        </h3>
+        <p class="text-muted md:col-span-5" lang={fallback ? 'fr' : undefined}>
+          {entry.data.summary}
+          {fallback && (
+            <span lang="fr" class="mt-1 block text-xs italic">
+              {t('content.fallback')}
+            </span>
+          )}
+        </p>
+        <div class="flex items-center justify-between gap-4 md:col-span-2 md:justify-end">
+          {entry.data.pillar && <Badge>{pillarLabel[entry.data.pillar]}</Badge>}
+          <span
+            class="flex size-10 shrink-0 items-center justify-center rounded-full border border-navy-700/30 text-navy-700 transition-colors group-hover:border-navy-700 group-hover:bg-navy-700 group-hover:text-paper"
+            aria-hidden="true"
+          >
+            →
+          </span>
+        </div>
+      </div>
+    </li>
+  ))}
+</ol>

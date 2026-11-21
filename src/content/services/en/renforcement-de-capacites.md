@@ -9,4 +9,15 @@ placeholder: true
 
 <!-- PLACEHOLDER: temporary text, to be replaced with the client's description -->
 
-Workshops, tailored training and support for leadership teams to embed a culture of preparedness within your institution.
+A resilient institution relies on prepared people. We design training and support programmes that build lasting skills across your teams, from the field to senior management.
+
+## What we do
+
+- Skills needs assessment
+- Tailored training, hands-on workshops and simulations
+- Coaching leadership teams on crisis decision-making
+- Reusable guides, procedures and materials
+
+## What you get
+
+More autonomous teams, a shared culture of preparedness and tools your organisation can pass on to new staff.

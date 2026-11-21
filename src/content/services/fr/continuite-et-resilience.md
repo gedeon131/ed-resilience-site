@@ -9,4 +9,15 @@ placeholder: true
 
 <!-- PLACEHOLDER : texte provisoire, à remplacer par la description fournie par la cliente -->
 
-Analyse d'impact, plans de continuité d'activité, exercices de simulation et mise à jour des procédures.
+Lorsqu'une crise survient, votre organisation doit continuer à servir ses bénéficiaires. Nous vous aidons à identifier ce qui ne doit jamais s'arrêter et à préparer les moyens de le maintenir.
+
+## Ce que nous faisons
+
+- Analyse d'impact sur les activités essentielles
+- Rédaction de plans de continuité d'activité
+- Exercices de simulation et retours d'expérience
+- Mise à jour des procédures et des circuits de décision
+
+## Ce que vous obtenez
+
+Un plan de continuité opérationnel, testé avec vos équipes, et une organisation capable de réagir vite et de manière coordonnée.
