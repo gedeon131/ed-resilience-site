@@ -1,14 +1,13 @@
 ---
-import { whatsappNumber } from '../../config/site';
+import { getWhatsAppHref } from '../../config/site';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const number = whatsappNumber.replace(/\D/g, '');
-const href = `https://wa.me/${number}?text=${encodeURIComponent(t('whatsapp.message'))}`;
+const href = getWhatsAppHref(t('whatsapp.message'));
 ---
 
-{number && (
+{href && (
   <a
     href={href}
     target="_blank"

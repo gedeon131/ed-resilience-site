@@ -68,6 +68,12 @@
   }
 }
 
+/* Champs invalides signalés seulement après une tentative d'envoi */
+form[data-submitted] :is(input, select, textarea):invalid {
+  border-color: var(--color-gold-700);
+  box-shadow: 0 0 0 1px var(--color-gold-700);
+}
+
 @layer base {
   html {
     @apply bg-paper font-sans text-text antialiased;

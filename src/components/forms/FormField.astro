@@ -1,0 +1,78 @@
+---
+/**
+ * Champ de formulaire avec libellé : texte, e-mail, téléphone, zone de texte ou liste.
+ */
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'textarea' | 'select';
+  required?: boolean;
+  options?: Option[];
+  autocomplete?: string;
+  placeholder?: string;
+  rows?: number;
+  /** Préfixe des id, pour avoir plusieurs formulaires sur la même page. */
+  idPrefix: string;
+  class?: string;
+}
+
+const {
+  name,
+  label,
+  type = 'text',
+  required = false,
+  options = [],
+  autocomplete,
+  placeholder,
+  rows = 5,
+  idPrefix,
+  class: className,
+} = Astro.props;
+
+const id = `${idPrefix}-${name}`;
+const control =
+  'w-full rounded-md border border-navy-700/20 bg-paper px-4 py-3 text-base text-text transition-colors placeholder:text-muted/70 hover:border-navy-700/40 focus:border-navy-500 focus:ring-2 focus:ring-gold-500/40 focus:outline-none';
+---
+
+<div class:list={['flex flex-col gap-2', className]}>
+  <label for={id} class="text-sm font-medium text-navy-700">
+    {label}
+    {required && (
+      <span class="text-gold-700" aria-hidden="true">
+        {' '}
+        *
+      </span>
+    )}
+  </label>
+  {type === 'textarea' ? (
+    <textarea
+      id={id}
+      name={name}
+      rows={rows}
+      required={required}
+      placeholder={placeholder}
+      class:list={[control, 'resize-y']}
+    />
+  ) : type === 'select' ? (
+    <select id={id} name={name} required={required} class:list={[control, 'appearance-auto']}>
+      {options.map(({ value, label: optionLabel }) => (
+        <option value={value}>{optionLabel}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      id={id}
+      name={name}
+      type={type}
+      required={required}
+      autocomplete={autocomplete}
+      placeholder={placeholder}
+      class={control}
+    />
+  )}
+</div>

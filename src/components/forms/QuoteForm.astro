@@ -1,0 +1,107 @@
+---
+import FormField from './FormField.astro';
+import FormFooter from './FormFooter.astro';
+import FormShell from './FormShell.astro';
+import { getLocalizedEntries } from '../../lib/content';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  labelledby: string;
+}
+
+const { labelledby } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const p = 'devis';
+
+const select = { value: '', label: t('form.select') };
+const services = await getLocalizedEntries('services', lang);
+
+const structures = [
+  select,
+  { value: 'institution-publique', label: t('form.structure.public') },
+  { value: 'ong', label: t('form.structure.ngo') },
+  { value: 'entreprise', label: t('form.structure.private') },
+  { value: 'partenaire-international', label: t('form.structure.partner') },
+  { value: 'autre', label: t('form.structure.other') },
+];
+
+const serviceOptions = [
+  select,
+  ...services.map(({ slug, entry }) => ({ value: slug, label: entry.data.title })),
+  { value: 'a-definir', label: t('form.service.unsure') },
+];
+
+// TODO(client): valider les tranches de budget (devise et montants)
+const budgets = [
+  select,
+  { value: 'a-definir', label: t('form.budget.unknown') },
+  { value: 'moins-5000-usd', label: t('form.budget.small') },
+  { value: '5000-20000-usd', label: t('form.budget.medium') },
+  { value: 'plus-20000-usd', label: t('form.budget.large') },
+];
+
+const deadlines = [
+  select,
+  { value: 'moins-1-mois', label: t('form.deadline.urgent') },
+  { value: '1-3-mois', label: t('form.deadline.quarter') },
+  { value: 'plus-3-mois', label: t('form.deadline.later') },
+  { value: 'flexible', label: t('form.deadline.flexible') },
+];
+---
+
+<FormShell type="devis" id="formulaire-devis" labelledby={labelledby}>
+  <FormField
+    idPrefix={p}
+    name="organization"
+    label={t('form.organization')}
+    required
+    autocomplete="organization"
+  />
+  <FormField
+    idPrefix={p}
+    name="structure"
+    type="select"
+    label={t('form.structure')}
+    required
+    options={structures}
+  />
+  <FormField
+    idPrefix={p}
+    name="service"
+    type="select"
+    label={t('form.service')}
+    required
+    options={serviceOptions}
+    class="md:col-span-2"
+  />
+  <FormField
+    idPrefix={p}
+    name="context"
+    type="textarea"
+    label={t('form.context')}
+    required
+    rows={6}
+    class="md:col-span-2"
+  />
+  <FormField idPrefix={p} name="budget" type="select" label={t('form.budget')} options={budgets} />
+  <FormField
+    idPrefix={p}
+    name="deadline"
+    type="select"
+    label={t('form.deadline')}
+    options={deadlines}
+  />
+  <FormField idPrefix={p} name="name" label={t('form.name')} required autocomplete="name" />
+  <FormField
+    idPrefix={p}
+    name="email"
+    type="email"
+    label={t('form.email')}
+    required
+    autocomplete="email"
+  />
+  <FormField idPrefix={p} name="phone" type="tel" label={t('form.phone')} autocomplete="tel" />
+  <div class="hidden md:block" aria-hidden="true"></div>
+  <FormFooter idPrefix={p} submitLabel={t('form.submitQuote')} />
+</FormShell>

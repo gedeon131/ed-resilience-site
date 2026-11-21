@@ -1,0 +1,44 @@
+---
+/**
+ * Page légale (mentions légales, confidentialité) à partir de la collection `legal`.
+ */
+import { getEntry, render } from 'astro:content';
+import PageHeader from '../ui/PageHeader.astro';
+import { defaultLang, getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  slug: 'mentions-legales' | 'confidentialite';
+}
+
+const { slug } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const own = await getEntry('legal', `${lang}/${slug}`);
+const entry = own ?? (await getEntry('legal', `${defaultLang}/${slug}`));
+if (!entry) throw new Error(`Page légale introuvable : ${slug}`);
+const fallback = !own;
+const { Content } = await render(entry);
+const updated = new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', {
+  dateStyle: 'long',
+}).format(entry.data.updated);
+---
+
+<PageHeader title={entry.data.title} breadcrumbs={[{ label: entry.data.title }]}>
+  <p class="mt-6 text-sm text-navy-100/70">
+    {`${t('legal.updated')}${lang === 'fr' ? ' :' : ':'} ${updated}`}
+  </p>
+  {fallback && (
+    <p lang="fr" class="mt-2 text-sm text-navy-100/70 italic">
+      {t('content.fallback')}
+    </p>
+  )}
+</PageHeader>
+
+<section class="bg-paper">
+  <article
+    class="prose-ed mx-auto max-w-3xl px-4 py-16 md:px-8 md:py-24"
+    lang={fallback ? 'fr' : undefined}
+  >
+    <Content />
+  </article>
+</section>

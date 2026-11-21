@@ -4,6 +4,7 @@ interface ImportMetaEnv {
   readonly PUBLIC_SITE_URL?: string;
   readonly PUBLIC_NOINDEX?: string;
   readonly FORM_WEBHOOK_URL?: string;
+  readonly PUBLIC_FORM_ENDPOINT?: string;
 }
 
 interface ImportMeta {

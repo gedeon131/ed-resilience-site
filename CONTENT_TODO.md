@@ -18,15 +18,22 @@ Claude Code met cette liste à jour à chaque texte ou image provisoire ajouté.
 - [ ] Expériences : logos et noms des partenaires institutionnels (rubrique à ajouter sur la page Expériences)
 - [ ] Expériences : 3 exemples fictifs dans `src/content/experiences/{fr,en}/`, affichés avec un badge « Exemple » ; à remplacer par de vraies missions (titre, client ou type de client, année, résumé)
 - [ ] Phrase de présentation du footer (`footer.description` dans `src/i18n/fr.json` et `en.json`, texte provisoire)
+- [ ] À propos : mission, vision, 4 valeurs (Rigueur, Engagement, Proximité, Impact), rôle et biographie de la fondatrice (`about.*`, `value.*`), provisoires
+- [ ] Contact : tranches de budget du formulaire de devis (devise USD et montants à valider)
+- [ ] Confidentialité : durée de conservation des données (3 ans proposé) et outil d'automatisation (n8n ou Make)
 
 ## Visuels
 - [ ] Logo en SVG ou PNG transparent
 - [ ] Logo version claire (pour fonds bleu marine)
-- [ ] Photo de la fondatrice
+- [ ] Photo de la fondatrice (emplacement prévu sur la page À propos, monogramme « ED » en attendant)
 - [ ] Photos de missions / ateliers
 
 ## Informations
 - [ ] Indicatif téléphonique (+509 ?)
 - [ ] Liens réseaux sociaux
 - [ ] Outil de rendez-vous (Cal.com ou Calendly)
-- [ ] Mentions légales : raison sociale, adresse, numéro d'enregistrement
+- [ ] Mentions légales : raison sociale, adresse, numéro d'enregistrement, hébergeur définitif, nom de l'agence (champs « [À compléter] » dans `src/content/legal/`)
+
+## Technique (agence)
+- [ ] Webhook n8n / Make pour les formulaires, puis `PUBLIC_FORM_ENDPOINT` (en attendant, les formulaires renvoient vers l'e-mail)
+- [ ] `PUBLIC_WHATSAPP_NUMBER` et `PUBLIC_BOOKING_URL` (variables GitHub Actions pour la préversion)

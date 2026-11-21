@@ -1,0 +1,63 @@
+---
+/**
+ * Illustration « globe et soleil levant », redessinée en SVG d'après une image générée avec Canva.
+ * Globe à méridiens (portée internationale), anneau doré (l'arc du logo), soleil levant (relèvement).
+ */
+interface Props {
+  class?: string;
+  /** Texte alternatif ; vide = décoratif. */
+  label?: string;
+}
+
+const { class: className, label } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 400 300"
+  fill="none"
+  class={className}
+  role={label ? 'img' : undefined}
+  aria-label={label || undefined}
+  aria-hidden={label ? undefined : 'true'}
+>
+  <!-- Soleil levant (derrière l'horizon) -->
+  <path d="M156 262a44 44 0 0 1 88 0z" fill="var(--color-gold-500)"></path>
+
+  <!-- Anneau doré, moitié arrière -->
+  <path
+    d="M88 132c4-20 60-34 130-30s118 26 112 46"
+    stroke="var(--color-gold-500)"
+    stroke-width="9"
+    stroke-linecap="round"
+    transform="rotate(-12 200 128)"
+  ></path>
+
+  <!-- Globe -->
+  <g stroke="var(--color-navy-700)" stroke-width="5" stroke-linecap="round">
+    <circle cx="200" cy="120" r="78" fill="var(--color-paper)"></circle>
+    <ellipse cx="200" cy="120" rx="30" ry="78"></ellipse>
+    <ellipse cx="200" cy="120" rx="58" ry="78"></ellipse>
+    <line x1="200" y1="42" x2="200" y2="198"></line>
+    <path d="M128 90h144M122 120h156M128 150h144"></path>
+  </g>
+
+  <!-- Anneau doré, moitié avant (passe devant le globe) -->
+  <path
+    d="M330 148c-6 20-62 32-130 28S84 152 88 132"
+    stroke="var(--color-gold-500)"
+    stroke-width="9"
+    stroke-linecap="round"
+    transform="rotate(-12 200 128)"
+  ></path>
+
+  <!-- Horizon -->
+  <line
+    x1="80"
+    y1="262"
+    x2="320"
+    y2="262"
+    stroke="var(--color-navy-700)"
+    stroke-width="5"
+    stroke-linecap="round"
+  ></line>
+</svg>

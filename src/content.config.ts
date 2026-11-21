@@ -32,4 +32,13 @@ const experiences = defineCollection({
   }),
 });
 
-export const collections = { services, experiences };
+const legal = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/legal' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    updated: z.coerce.date(),
+  }),
+});
+
+export const collections = { services, experiences, legal };

@@ -1,0 +1,66 @@
+---
+/**
+ * Bas de formulaire commun : pot de miel anti-spam, consentement RGPD, bouton et zone de statut.
+ */
+import { getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  idPrefix: string;
+  submitLabel: string;
+}
+
+const { idPrefix, submitLabel } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<!-- Pot de miel : invisible pour les humains, rempli par les robots -->
+<div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+  <label for={`${idPrefix}-website`}>Website</label>
+  <input id={`${idPrefix}-website`} name="website" type="text" tabindex="-1" autocomplete="off" />
+</div>
+
+<div class="flex items-start gap-3 md:col-span-2">
+  <input
+    id={`${idPrefix}-consent`}
+    name="consent"
+    type="checkbox"
+    value="oui"
+    required
+    class="mt-1 size-4 shrink-0 accent-navy-700"
+  />
+  <label for={`${idPrefix}-consent`} class="text-sm text-muted">
+    {`${t('form.consent')} `}
+    <a
+      href={getLocalizedPath('privacy', lang)}
+      class="text-navy-700 underline decoration-gold-500 underline-offset-4"
+    >
+      {t('form.consentLink')}
+    </a>
+    {'. '}
+    <span class="text-gold-700" aria-hidden="true">
+      *
+    </span>
+  </label>
+</div>
+
+<div class="flex flex-col gap-4 md:col-span-2 md:flex-row md:items-center md:justify-between">
+  <p class="text-xs text-muted">
+    <span class="text-gold-700">*</span> {t('form.required')}
+  </p>
+  <button
+    type="submit"
+    class="inline-flex items-center justify-center gap-2 rounded-md bg-navy-700 px-7 py-3.5 text-xs font-semibold tracking-[0.15em] text-paper uppercase transition-colors hover:bg-navy-500 disabled:cursor-wait disabled:opacity-70 md:text-sm"
+  >
+    <span data-submit-label>{submitLabel}</span>
+    <span aria-hidden="true">→</span>
+  </button>
+</div>
+
+<p
+  data-form-status
+  role="status"
+  aria-live="polite"
+  hidden
+  class="rounded-md border px-4 py-3 text-sm md:col-span-2 data-[tone=error]:border-gold-700 data-[tone=error]:bg-gold-300/15 data-[tone=error]:text-text data-[tone=success]:border-navy-500 data-[tone=success]:bg-navy-100 data-[tone=success]:text-navy-700"
+></p>

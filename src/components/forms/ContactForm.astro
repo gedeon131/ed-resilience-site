@@ -1,0 +1,45 @@
+---
+import FormField from './FormField.astro';
+import FormFooter from './FormFooter.astro';
+import FormShell from './FormShell.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  labelledby: string;
+}
+
+const { labelledby } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const p = 'contact';
+---
+
+<FormShell type="contact" id="formulaire-contact" labelledby={labelledby}>
+  <FormField idPrefix={p} name="name" label={t('form.name')} required autocomplete="name" />
+  <FormField
+    idPrefix={p}
+    name="email"
+    type="email"
+    label={t('form.email')}
+    required
+    autocomplete="email"
+  />
+  <FormField idPrefix={p} name="phone" type="tel" label={t('form.phone')} autocomplete="tel" />
+  <FormField
+    idPrefix={p}
+    name="organization"
+    label={t('form.organizationOptional')}
+    autocomplete="organization"
+  />
+  <FormField idPrefix={p} name="subject" label={t('form.subject')} required class="md:col-span-2" />
+  <FormField
+    idPrefix={p}
+    name="message"
+    type="textarea"
+    label={t('form.message')}
+    required
+    rows={6}
+    class="md:col-span-2"
+  />
+  <FormFooter idPrefix={p} submitLabel={t('form.submit')} />
+</FormShell>

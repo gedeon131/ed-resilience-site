@@ -1,0 +1,11 @@
+---
+import LegalPage from '../components/legal/LegalPage.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/utils';
+
+const t = useTranslations('fr');
+---
+
+<BaseLayout title={t('legal.title')} description={t('legal.description')}>
+  <LegalPage slug="mentions-legales" />
+</BaseLayout>

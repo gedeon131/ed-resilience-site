@@ -1,0 +1,40 @@
+---
+/**
+ * Balise <form> commune : type de demande, adresse d'envoi et messages traduits pour le script d'envoi.
+ */
+import { contactEmail, formEndpoint } from '../../config/site';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  type: 'contact' | 'devis';
+  id: string;
+  labelledby: string;
+}
+
+const { type, id, labelledby } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<form
+  id={id}
+  aria-labelledby={labelledby}
+  novalidate
+  data-ed-form
+  data-type={type}
+  data-lang={lang}
+  data-endpoint={formEndpoint}
+  data-msg-invalid={t('form.invalid')}
+  data-msg-sending={t('form.sending')}
+  data-msg-success={t('form.success')}
+  data-msg-error={`${t('form.error')} (${contactEmail})`}
+  data-msg-inactive={`${t('form.inactive')} ${contactEmail}`}
+  class="relative grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-2"
+>
+  <slot />
+</form>
+
+<script>
+  import { initForms } from '../../lib/forms';
+  initForms();
+</script>

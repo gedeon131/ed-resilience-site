@@ -1,0 +1,11 @@
+---
+import AboutPage from '../../components/about/AboutPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+---
+
+<BaseLayout title={t('about.title')} description={t('about.description')}>
+  <AboutPage />
+</BaseLayout>
