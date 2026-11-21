@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@import "@fontsource/cinzel/500.css";
+@import "@fontsource/cinzel/600.css";
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/400-italic.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/cormorant-garamond/400-italic.css";
+@import "@fontsource/cormorant-garamond/500-italic.css";
+
+@theme {
+  --color-navy-900: #0a1f35;
+  --color-navy-800: #0c2440;
+  --color-navy-700: #003054;
+  --color-navy-500: #1c4a75;
+  --color-navy-100: #e6edf4;
+  --color-gold-700: #8f6b2e;
+  --color-gold-500: #b08d4c;
+  --color-gold-300: #d4b97e;
+  --color-ink: #0a0a0a;
+  --color-paper: #faf8f4;
+  --color-text: #1e2a36;
+  --color-muted: #5b6875;
+
+  --font-display: "Cinzel", "Times New Roman", serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
+  --font-accent: "Cormorant Garamond", Georgia, serif;
+}
+
+@layer base {
+  html {
+    @apply bg-paper font-sans text-text antialiased;
+  }
+
+  body {
+    line-height: 1.65;
+  }
+
+  h1,
+  h2 {
+    @apply font-display font-semibold text-navy-700;
+    letter-spacing: 0.04em;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-medium text-navy-700;
+  }
+
+  a {
+    @apply text-navy-700;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-gold-500;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n/utils';
+
+const t = useTranslations('fr');
+---
+
+<BaseLayout title={t('home.title')} description={t('home.description')}>
+  <main class="flex min-h-screen flex-col items-center justify-center gap-4 bg-navy-900 px-4 text-center">
+    <!-- Page provisoire : la vraie page d'accueil est l'étape 4 du §10 -->
+    <h1 class="text-3xl text-gold-300 md:text-5xl">{t('site.name')}</h1>
+    <p class="text-xs tracking-[0.2em] text-navy-100 uppercase">{t('site.pillars')}</p>
+    <p class="font-accent text-xl text-gold-300 italic">{t('site.tagline')}</p>
+  </main>
+</BaseLayout>

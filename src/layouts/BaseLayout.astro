@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import { getAlternatePath, getLangFromUrl } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const site = Astro.site ?? new URL('https://edresilienceconsulting.com');
+const canonical = new URL(Astro.url.pathname, site);
+const altFr = new URL(getAlternatePath(Astro.url, 'fr'), site);
+const altEn = new URL(getAlternatePath(Astro.url, 'en'), site);
+const fullTitle = `${title} | ED Resilience Consulting`;
+// TODO: Header, Footer, WhatsAppButton et composant <SEO /> complet (étapes 2 et 7 du §10)
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="fr" href={altFr} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altFr} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="min-h-screen">
+    <slot />
+  </body>
+</html>

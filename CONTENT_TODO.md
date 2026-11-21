@@ -1,0 +1,23 @@
+# Contenus à obtenir de la cliente
+
+Claude Code met cette liste à jour à chaque texte ou image provisoire ajouté.
+
+## Textes
+- [ ] Présentation du cabinet (À propos) : mission, vision, valeurs
+- [ ] Biographie de la fondatrice
+- [ ] Liste des services avec description de chacun
+- [ ] Expériences / missions réalisées / références
+- [ ] Validation de la signature FR : « Bâtir la résilience. Renforcer l'avenir. »
+- [ ] Traductions anglaises
+
+## Visuels
+- [ ] Logo en SVG ou PNG transparent
+- [ ] Logo version claire (pour fonds bleu marine)
+- [ ] Photo de la fondatrice
+- [ ] Photos de missions / ateliers
+
+## Informations
+- [ ] Indicatif téléphonique (+509 ?)
+- [ ] Liens réseaux sociaux
+- [ ] Outil de rendez-vous (Cal.com ou Calendly)
+- [ ] Mentions légales : raison sociale, adresse, numéro d'enregistrement
