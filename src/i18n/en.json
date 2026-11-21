@@ -195,6 +195,9 @@
   "privacy.title": "Privacy",
   "privacy.description": "Privacy policy for edresilienceconsulting.com: data collected, purposes and rights.",
   "legal.updated": "Last updated",
+  "notFound.title": "Page not found",
+  "notFound.text": "The page you are looking for does not exist or has been moved.",
+  "notFound.home": "Back to home",
   "home.title": "Home",
   "home.description": "Institutional consulting and advisory firm specialising in capacity building."
 }

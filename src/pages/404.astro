@@ -1,0 +1,49 @@
+---
+import Button from '../components/ui/Button.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLocalizedPath, useTranslations } from '../i18n/utils';
+
+// Page commune aux deux langues : le français d'abord, l'anglais en dessous
+const fr = useTranslations('fr');
+const en = useTranslations('en');
+---
+
+<BaseLayout title={fr('notFound.title')} description={fr('notFound.text')}>
+  <section class="relative isolate overflow-hidden bg-navy-900 text-navy-100">
+    <svg
+      class="pointer-events-none absolute -right-32 -bottom-48 -z-10 size-[36rem] text-gold-300 opacity-[0.06]"
+      viewBox="0 0 200 200"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="0.6"
+      aria-hidden="true"
+    >
+      <circle cx="100" cy="100" r="95"></circle>
+      <ellipse cx="100" cy="100" rx="45" ry="95"></ellipse>
+      <ellipse cx="100" cy="100" rx="75" ry="95"></ellipse>
+      <path d="M12 65h176M5 100h190M12 135h176"></path>
+    </svg>
+    <div class="mx-auto max-w-3xl px-4 py-24 text-center md:px-8 md:py-32">
+      <p class="font-display text-7xl font-semibold text-gold-300 md:text-8xl">404</p>
+      <h1 class="mt-6 text-3xl text-paper md:text-4xl">{fr('notFound.title')}</h1>
+      <p class="mt-4 text-navy-100/85">{fr('notFound.text')}</p>
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <Button href={getLocalizedPath('home', 'fr')} variant="accent">
+          {fr('notFound.home')}
+        </Button>
+        <Button href={getLocalizedPath('contact', 'fr')} variant="outline-light">
+          {fr('nav.contact')}
+        </Button>
+      </div>
+      <div lang="en" class="mt-14 border-t border-gold-500/20 pt-8 text-sm text-navy-100/75">
+        <p>{en('notFound.text')}</p>
+        <a
+          href={getLocalizedPath('home', 'en')}
+          class="mt-3 inline-block text-gold-300 hover:text-paper"
+        >
+          {en('notFound.home')} →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

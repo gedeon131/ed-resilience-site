@@ -63,10 +63,11 @@ const split = layout === 'split';
               class:list={[
                 'mb-5 flex items-center gap-4 text-xs font-semibold tracking-[0.2em] uppercase',
                 !split && 'justify-center',
-                dark ? 'text-gold-300' : 'text-gold-700',
+                // Sur le fond bleu clair, l'or foncé n'atteint pas le contraste AA : texte marine, filet or
+                dark ? 'text-gold-300' : tone === 'tint' ? 'text-navy-500' : 'text-gold-700',
               ]}
             >
-              <span class="h-px w-10 bg-current" aria-hidden="true"></span>
+              <span class="h-px w-10 bg-gold-500" aria-hidden="true"></span>
               {eyebrow}
             </p>
           )}

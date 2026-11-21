@@ -79,6 +79,8 @@ export function getDetailPath(key: RouteKey, slug: string, lang: Lang): string {
 /** Retrouve l'équivalent d'une URL dans l'autre langue (pour le sélecteur de langue). */
 export function getAlternatePath(url: URL, target: Lang): string {
   const path = getCurrentPath(url);
+  // Page 404 commune aux deux langues : le sélecteur renvoie vers l'accueil
+  if (path === '/404') return withBase(routes.home[target]);
   for (const entry of Object.values(routes)) {
     for (const p of Object.values(entry)) {
       if (normalize(p) === path) return withBase(entry[target]);

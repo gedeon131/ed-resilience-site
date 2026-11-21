@@ -1,0 +1,95 @@
+---
+/**
+ * Balises SEO de chaque page : title, description, canonical, hreflang, Open Graph, Twitter,
+ * icônes et données structurées JSON-LD (ProfessionalService).
+ */
+import { contactEmail, phoneDisplay, socialLinks, whatsappNumber } from '../../config/site';
+import {
+  getAlternatePath,
+  getCurrentPath,
+  getLangFromUrl,
+  useTranslations,
+  withBase,
+} from '../../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Image de partage (chemin depuis public/). */
+  image?: string;
+}
+
+const { title, description, image = '/og-image.jpg' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const site = Astro.site ?? new URL('https://edresilienceconsulting.com');
+const siteName = t('site.name');
+const currentPath = getCurrentPath(Astro.url);
+const isHome = currentPath === '/' || currentPath === '/en';
+const fullTitle = isHome ? `${siteName} | ${t('site.tagline')}` : `${title} | ${siteName}`;
+const canonical = new URL(Astro.url.pathname, site);
+const altFr = new URL(getAlternatePath(Astro.url, 'fr'), site);
+const altEn = new URL(getAlternatePath(Astro.url, 'en'), site);
+const imageUrl = new URL(withBase(image), site);
+// Préversions (GitHub Pages) : ne pas indexer, pour ne pas concurrencer le futur domaine
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
+
+const homeUrl = new URL(withBase('/'), site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': `${homeUrl}#organisation`,
+  name: siteName,
+  slogan: t('site.tagline'),
+  description: t('home.description'),
+  url: homeUrl,
+  logo: new URL(withBase('/icon-512.png'), site).href,
+  image: imageUrl.href,
+  email: contactEmail,
+  telephone: whatsappNumber ? `+${whatsappNumber}` : undefined,
+  areaServed: [{ '@type': 'Country', name: 'Haiti' }],
+  knowsLanguage: ['fr', 'en'],
+  founder: { '@type': 'Person', name: t('about.founder.name') },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    email: contactEmail,
+    telephone: phoneDisplay,
+    availableLanguage: ['French', 'English'],
+  },
+  sameAs: socialLinks.length ? socialLinks.map((s) => s.href) : undefined,
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<link rel="canonical" href={canonical} />
+<link rel="alternate" hreflang="fr" href={altFr} />
+<link rel="alternate" hreflang="en" href={altEn} />
+<link rel="alternate" hreflang="x-default" href={altFr} />
+<link rel="sitemap" href={withBase('/sitemap-index.xml')} />
+
+<link rel="icon" href={withBase('/favicon.ico')} sizes="32x32" />
+<link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+<link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+<link rel="manifest" href={withBase('/manifest.webmanifest')} />
+<meta name="theme-color" content="#0A1F35" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+<meta property="og:locale:alternate" content={lang === 'fr' ? 'en_US' : 'fr_FR'} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${siteName} : ${t('site.pillars')}`} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

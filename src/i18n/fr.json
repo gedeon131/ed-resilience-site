@@ -195,6 +195,9 @@
   "privacy.title": "Confidentialité",
   "privacy.description": "Politique de confidentialité du site edresilienceconsulting.com : données collectées, finalités et droits.",
   "legal.updated": "Dernière mise à jour",
+  "notFound.title": "Page introuvable",
+  "notFound.text": "La page que vous cherchez n'existe pas ou a été déplacée.",
+  "notFound.home": "Retour à l'accueil",
   "home.title": "Accueil",
   "home.description": "Cabinet de consultation et d'accompagnement institutionnel spécialisé dans le renforcement de capacité."
 }

@@ -1,0 +1,15 @@
+{
+  "name": "ED Resilience Consulting",
+  "short_name": "ED Resilience",
+  "description": "Cabinet de consultation et d'accompagnement institutionnel : Risk | Resilience | Recovery.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "browser",
+  "background_color": "#0A1F35",
+  "theme_color": "#0A1F35",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
