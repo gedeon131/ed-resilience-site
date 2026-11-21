@@ -1,0 +1,71 @@
+---
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+import Card from '../ui/Card.astro';
+import Section from '../ui/Section.astro';
+import { getLocalizedEntries } from '../../lib/content';
+import { getDetailPath, getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const services = (await getLocalizedEntries('services', lang)).filter(
+  ({ entry }) => entry.data.featured,
+);
+
+const pillarLabel = {
+  risk: t('pillar.risk.title'),
+  resilience: t('pillar.resilience.title'),
+  recovery: t('pillar.recovery.title'),
+};
+---
+
+<Section
+  id="services"
+  tone="tint"
+  eyebrow={t('home.services.eyebrow')}
+  title={t('home.services.title')}
+  intro={t('home.services.intro')}
+>
+  <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="list">
+    {services.map(({ slug, entry, fallback }) => (
+      <li class="md:last:odd:col-span-2 lg:last:odd:col-span-1">
+        <Card tone="light" as="div" class="group hover:shadow-md">
+          <div class="mb-5 flex flex-wrap items-center gap-2">
+            {entry.data.pillar && <Badge>{pillarLabel[entry.data.pillar]}</Badge>}
+            {fallback && (
+              <span lang="fr" class="text-xs text-muted italic">
+                {t('content.fallback')}
+              </span>
+            )}
+          </div>
+          <h3
+            class="text-lg font-semibold text-navy-700 md:text-xl"
+            lang={fallback ? 'fr' : undefined}
+          >
+            <a
+              href={getDetailPath('services', slug, lang)}
+              class="no-underline after:absolute after:inset-0 hover:text-navy-500"
+            >
+              {entry.data.title}
+            </a>
+          </h3>
+          <p class="mt-3 flex-1 text-muted" lang={fallback ? 'fr' : undefined}>
+            {entry.data.summary}
+          </p>
+          <span
+            class="mt-6 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.15em] text-gold-700 uppercase"
+            aria-hidden="true"
+          >
+            {t('home.services.more')}
+            <span class="transition-transform group-hover:translate-x-1">→</span>
+          </span>
+        </Card>
+      </li>
+    ))}
+  </ul>
+  <div class="mt-12 text-center">
+    <Button href={getLocalizedPath('services', lang)} variant="outline">
+      {t('home.services.all')}
+    </Button>
+  </div>
+</Section>

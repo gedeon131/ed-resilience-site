@@ -1,0 +1,61 @@
+---
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+import Card from '../ui/Card.astro';
+import Section from '../ui/Section.astro';
+import { getLocalizedEntries } from '../../lib/content';
+import { getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const experiences = (await getLocalizedEntries('experiences', lang))
+  .filter(({ entry }) => entry.data.featured)
+  .slice(0, 3);
+---
+
+<Section
+  id="experiences"
+  tone="dark"
+  eyebrow={t('home.experiences.eyebrow')}
+  title={t('home.experiences.title')}
+  intro={t('home.experiences.intro')}
+>
+  <ul class="grid gap-6 md:grid-cols-3" role="list">
+    {experiences.map(({ entry, fallback }) => (
+      <li>
+        <Card tone="dark" as="div">
+          <div class="mb-5 flex flex-wrap items-center gap-2">
+            {entry.data.placeholder && <Badge tone="dark">{t('content.example')}</Badge>}
+            {fallback && (
+              <span lang="fr" class="text-xs text-navy-100/70 italic">
+                {t('content.fallback')}
+              </span>
+            )}
+          </div>
+          {entry.data.client && (
+            <p
+              class="text-xs font-semibold tracking-[0.15em] text-gold-300 uppercase"
+              lang={fallback ? 'fr' : undefined}
+            >
+              {entry.data.client}
+            </p>
+          )}
+          <h3
+            class="mt-3 text-lg font-semibold text-paper md:text-xl"
+            lang={fallback ? 'fr' : undefined}
+          >
+            {entry.data.title}
+          </h3>
+          <p class="mt-3 text-navy-100/80" lang={fallback ? 'fr' : undefined}>
+            {entry.data.summary}
+          </p>
+        </Card>
+      </li>
+    ))}
+  </ul>
+  <div class="mt-12 text-center">
+    <Button href={getLocalizedPath('experiences', lang)} variant="outline-light">
+      {t('home.experiences.all')}
+    </Button>
+  </div>
+</Section>

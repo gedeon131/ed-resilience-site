@@ -9,6 +9,10 @@ Claude Code met cette liste à jour à chaque texte ou image provisoire ajouté.
 - [ ] Expériences / missions réalisées / références
 - [ ] Validation de la signature FR : « Bâtir la résilience. Renforcer l'avenir. »
 - [ ] Traductions anglaises
+- [ ] Accueil, hero : titre, surtitre et paragraphe d'introduction (`home.hero.*` dans `src/i18n/*.json`, provisoires)
+- [ ] Accueil : textes des trois piliers Risk / Resilience / Recovery (`pillar.*`) et intros de sections (`home.*`)
+- [ ] Services : 4 fiches provisoires dans `src/content/services/{fr,en}/` (`placeholder: true`), à remplacer par la vraie liste
+- [ ] Expériences : 3 exemples fictifs dans `src/content/experiences/{fr,en}/`, affichés avec un badge « Exemple » ; à remplacer par de vraies missions (titre, client ou type de client, année, résumé)
 - [ ] Phrase de présentation du footer (`footer.description` dans `src/i18n/fr.json` et `en.json`, texte provisoire)
 
 ## Visuels

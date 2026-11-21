@@ -1,0 +1,30 @@
+---
+import Button from '../ui/Button.astro';
+import GoldDivider from '../ui/GoldDivider.astro';
+import { getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const contact = getLocalizedPath('contact', lang);
+---
+
+<section class="bg-paper" aria-labelledby="cta-titre">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <div class="relative overflow-hidden rounded-md bg-navy-700 px-6 py-14 text-center md:px-16 md:py-20">
+      <h2 id="cta-titre" class="text-2xl text-paper md:text-4xl">
+        {t('home.cta.title')}
+      </h2>
+      <GoldDivider class="mt-6" />
+      <p class="mx-auto mt-6 max-w-2xl text-navy-100 md:text-lg">{t('home.cta.text')}</p>
+      <div class="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+        <Button href={contact} variant="accent" size="lg">
+          {t('home.cta.primary')}
+        </Button>
+        <!-- TODO: ancre vers le formulaire de devis une fois la page Contact créée (étape 6) -->
+        <Button href={`${contact}#devis`} variant="outline-light" size="lg">
+          {t('home.cta.secondary')}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
