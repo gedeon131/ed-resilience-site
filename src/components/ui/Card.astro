@@ -1,0 +1,28 @@
+---
+/**
+ * Carte de contenu. `tone` selon le fond de la section qui la contient.
+ */
+interface Props {
+  tone?: 'light' | 'tint' | 'dark';
+  as?: 'article' | 'div' | 'li';
+  class?: string;
+}
+
+const { tone = 'light', as: Tag = 'article', class: className } = Astro.props;
+
+const tones = {
+  light: 'border-navy-100 bg-paper shadow-sm shadow-navy-900/5',
+  tint: 'border-transparent bg-navy-100/70',
+  dark: 'border-gold-500/20 bg-navy-800',
+};
+---
+
+<Tag
+  class:list={[
+    'relative flex h-full flex-col rounded-md border p-6 transition-shadow duration-200 md:p-8',
+    tones[tone],
+    className,
+  ]}
+>
+  <slot />
+</Tag>

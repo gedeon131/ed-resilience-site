@@ -1,0 +1,80 @@
+---
+import GoldDivider from './GoldDivider.astro';
+
+/**
+ * Section de page avec en-tête optionnel (surtitre, titre H2, filet or, introduction).
+ */
+type Tone = 'paper' | 'tint' | 'dark' | 'deep';
+
+interface Props {
+  id?: string;
+  tone?: Tone;
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  align?: 'center' | 'left';
+  class?: string;
+}
+
+const {
+  id,
+  tone = 'paper',
+  eyebrow,
+  title,
+  intro,
+  align = 'center',
+  class: className,
+} = Astro.props;
+
+const dark = tone === 'dark' || tone === 'deep';
+
+const tones: Record<Tone, string> = {
+  paper: 'bg-paper text-text',
+  tint: 'bg-navy-100 text-text',
+  dark: 'bg-navy-900 text-navy-100',
+  deep: 'bg-navy-800 text-navy-100',
+};
+
+const headingId = id ? `${id}-titre` : undefined;
+---
+
+<section
+  id={id}
+  aria-labelledby={title ? headingId : undefined}
+  class:list={[tones[tone], className]}
+>
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    {title && (
+      <header
+        class:list={[
+          'mb-12 max-w-3xl md:mb-16',
+          align === 'center' ? 'mx-auto text-center' : 'text-left',
+        ]}
+      >
+        {eyebrow && (
+          <p
+            class:list={[
+              'mb-4 text-xs font-semibold tracking-[0.2em] uppercase',
+              dark ? 'text-gold-300' : 'text-gold-700',
+            ]}
+          >
+            {eyebrow}
+          </p>
+        )}
+        <h2
+          id={headingId}
+          class:list={['text-2xl leading-tight md:text-4xl', dark && 'text-paper']}
+        >
+          {title}
+        </h2>
+        <GoldDivider align={align} class="mt-6" />
+        {intro && (
+          <p class:list={['mt-6 text-base md:text-lg', dark ? 'text-navy-100/85' : 'text-muted']}>
+            {intro}
+          </p>
+        )}
+      </header>
+    )}
+    <slot />
+  </div>
+</section>

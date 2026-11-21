@@ -11,6 +11,8 @@ const services = defineCollection({
     order: z.number().default(0),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    /** Texte provisoire en attendant le contenu de la cliente (voir CONTENT_TODO.md). */
+    placeholder: z.boolean().default(false),
   }),
 });
 
@@ -23,7 +25,10 @@ const experiences = defineCollection({
     location: z.string().optional(),
     summary: z.string(),
     order: z.number().default(0),
+    featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    /** Exemple provisoire : affiché avec un badge « Exemple » tant que la cliente n'a pas fourni ses références. */
+    placeholder: z.boolean().default(false),
   }),
 });
 

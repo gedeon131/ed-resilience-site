@@ -1,0 +1,31 @@
+---
+/**
+ * Filet or avec losange central, repris du logo (sous le nom de la marque).
+ */
+interface Props {
+  align?: 'center' | 'left';
+  class?: string;
+}
+
+const { align = 'center', class: className } = Astro.props;
+---
+
+<div
+  aria-hidden="true"
+  class:list={[
+    'flex w-full max-w-60 items-center gap-2.5',
+    align === 'center' ? 'mx-auto' : 'mr-auto',
+    className,
+  ]}
+>
+  <span
+    class:list={[
+      'h-px',
+      align === 'center'
+        ? 'flex-1 bg-linear-to-r from-transparent via-gold-700 to-gold-500'
+        : 'w-10 bg-gold-500',
+    ]}
+  ></span>
+  <span class="size-1.5 shrink-0 rotate-45 bg-gold-500"></span>
+  <span class="h-px flex-1 bg-linear-to-l from-transparent via-gold-300 to-gold-500"></span>
+</div>

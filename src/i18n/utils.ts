@@ -71,6 +71,11 @@ export function getLocalizedPath(key: RouteKey, lang: Lang): string {
   return withBase(routes[key][lang]);
 }
 
+/** URL d'une page de détail sous une route (ex. un service : /services/<slug>). */
+export function getDetailPath(key: RouteKey, slug: string, lang: Lang): string {
+  return withBase(`${routes[key][lang].replace(/\/$/, '')}/${slug}`);
+}
+
 /** Retrouve l'équivalent d'une URL dans l'autre langue (pour le sélecteur de langue). */
 export function getAlternatePath(url: URL, target: Lang): string {
   const path = getCurrentPath(url);
