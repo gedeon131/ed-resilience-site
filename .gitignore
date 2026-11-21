@@ -10,3 +10,4 @@ dist/
 
 # Documents client (brief, questionnaire) : gardés en local, jamais publiés (dépôt public)
 docs/
+CLAUDE.md
