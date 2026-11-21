@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import logo from '../../assets/logo/logo-original.jpg';
 import Button from '../ui/Button.astro';
+import { getBookingLink } from '../../config/site';
 import { getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -53,7 +54,15 @@ const t = useTranslations(lang);
           {t('home.hero.ctaPrimary')}
           <span aria-hidden="true">→</span>
         </Button>
-        <Button href={getLocalizedPath('contact', lang)} variant="outline-light" size="lg">
+        <Button
+          {...getBookingLink(
+            t('home.hero.ctaSecondary'),
+            t('booking.newTab'),
+            getLocalizedPath('contact', lang),
+          )}
+          variant="outline-light"
+          size="lg"
+        >
           {t('home.hero.ctaSecondary')}
         </Button>
       </div>

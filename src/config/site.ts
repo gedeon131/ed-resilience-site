@@ -20,9 +20,26 @@ export function getWhatsAppHref(message: string): string {
     : '';
 }
 
-/** Lien de réservation Cal.com (ex. https://cal.com/ed-resilience/30min). */
-// TODO(client): créer le compte Cal.com et renseigner PUBLIC_BOOKING_URL (ou la valeur ci-dessous)
-export const bookingUrl: string = import.meta.env.PUBLIC_BOOKING_URL ?? '';
+/** Lien de réservation Cal.com. PUBLIC_BOOKING_URL permet de le remplacer sans toucher au code. */
+// TODO(client): avant la mise en ligne, remplacer par le compte Cal.com d'Ernestia
+// (celui-ci est le compte de l'agence, utilisé pour la préversion)
+export const bookingUrl: string =
+  import.meta.env.PUBLIC_BOOKING_URL || 'https://cal.com/gedeon-freycinet-eobavh/30min';
+
+/**
+ * Attributs d'un lien « Prendre rendez-vous » : ouvre Cal.com dans un nouvel onglet,
+ * ou renvoie vers la page Contact si aucun lien de réservation n'est configuré.
+ */
+export function getBookingLink(label: string, newTabHint: string, fallbackHref: string) {
+  return bookingUrl
+    ? {
+        href: bookingUrl,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        'aria-label': `${label} ${newTabHint}`,
+      }
+    : { href: fallbackHref };
+}
 
 /**
  * Adresse qui reçoit les formulaires (webhook n8n / Make), appelée depuis le navigateur.

@@ -5,6 +5,7 @@
 import { render } from 'astro:content';
 import ServiceList from './ServiceList.astro';
 import Button from '../ui/Button.astro';
+import { getBookingLink } from '../../config/site';
 import PageHeader from '../ui/PageHeader.astro';
 import Section from '../ui/Section.astro';
 import { getLocalizedEntries, type LocalizedEntry } from '../../lib/content';
@@ -67,7 +68,11 @@ const pillar = entry.data.pillar;
         <h2 class="mt-4 text-2xl leading-snug text-paper">{t('service.aside.title')}</h2>
         <p class="mt-4 text-navy-100/85">{t('service.aside.text')}</p>
         <div class="mt-8 flex flex-col gap-3">
-          <Button href={contact} variant="accent" size="lg">
+          <Button
+            {...getBookingLink(t('home.cta.primary'), t('booking.newTab'), contact)}
+            variant="accent"
+            size="lg"
+          >
             {t('home.cta.primary')}
             <span aria-hidden="true">→</span>
           </Button>

@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getBookingLink } from '../../config/site';
 import {
   getCurrentPath,
   getLangFromUrl,
@@ -39,7 +40,11 @@ const links = items.map(({ key, label }) => {
   return { href, label: t(label), active };
 });
 
-const ctaHref = getLocalizedPath('contact', lang);
+const booking = getBookingLink(
+  t('nav.cta'),
+  t('booking.newTab'),
+  getLocalizedPath('contact', lang),
+);
 ---
 
 <header
@@ -104,7 +109,7 @@ const ctaHref = getLocalizedPath('contact', lang);
 
     <div class="flex items-center gap-3">
       <a
-        href={ctaHref}
+        {...booking}
         class="hidden rounded-md bg-gold-500 px-4 py-2.5 text-xs font-semibold tracking-[0.15em] text-navy-900 uppercase no-underline transition-colors hover:bg-gold-300 md:inline-flex"
       >
         {t('nav.cta')}
@@ -165,7 +170,7 @@ const ctaHref = getLocalizedPath('contact', lang);
       ))}
       <li class="pt-4 md:hidden">
         <a
-          href={ctaHref}
+          {...booking}
           class="block rounded-md bg-gold-500 px-4 py-3 text-center text-xs font-semibold tracking-[0.15em] text-navy-900 uppercase no-underline hover:bg-gold-300"
         >
           {t('nav.cta')}

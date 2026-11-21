@@ -32,7 +32,8 @@ Claude Code met cette liste à jour à chaque texte ou image provisoire ajouté.
 - [x] Indicatif téléphonique : +509 3273-0712 (WhatsApp actif)
 - [ ] Liens réseaux sociaux
 - [x] Outil de rendez-vous : Cal.com
-- [ ] Lien de réservation Cal.com (ex. https://cal.com/…)
+- [x] Lien de réservation Cal.com branché pour la préversion (compte de l'agence : cal.com/gedeon-freycinet-eobavh/30min)
+- [ ] Avant la mise en ligne : compte Cal.com au nom d'Ernestia, puis mettre son lien dans `PUBLIC_BOOKING_URL` (ou `src/config/site.ts`)
 - [ ] Mentions légales : raison sociale, adresse, numéro d'enregistrement, hébergeur définitif, nom de l'agence (champs « [À compléter] » dans `src/content/legal/`)
 
 ## Technique (agence)

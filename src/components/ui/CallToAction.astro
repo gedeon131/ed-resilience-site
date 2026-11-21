@@ -1,11 +1,12 @@
 ---
 import Button from '../ui/Button.astro';
-import { contactEmail } from '../../config/site';
+import { contactEmail, getBookingLink } from '../../config/site';
 import { getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const contact = getLocalizedPath('contact', lang);
+const booking = getBookingLink(t('home.cta.primary'), t('booking.newTab'), contact);
 ---
 
 <section
@@ -43,7 +44,7 @@ const contact = getLocalizedPath('contact', lang);
       </a>
     </div>
     <div class="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
-      <Button href={contact} variant="accent" size="lg">
+      <Button {...booking} variant="accent" size="lg">
         {t('home.cta.primary')}
         <span aria-hidden="true">→</span>
       </Button>
