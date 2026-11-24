@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import LogoMark from '../ui/LogoMark.astro';
 import { getBookingLink } from '../../config/site';
 import {
   getCurrentPath,
@@ -71,12 +72,7 @@ const booking = getBookingLink(
 
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-8">
     <a href={getLocalizedPath('home', lang)} class="group flex items-center gap-3 no-underline">
-      <span
-        class="flex size-10 items-center justify-center rounded-md border border-gold-500/50 font-display text-lg font-semibold text-gold-300 md:size-11"
-        aria-hidden="true"
-      >
-        ED
-      </span>
+      <LogoMark class="h-9 w-auto shrink-0 text-paper md:h-11" />
       <span class="flex flex-col leading-tight">
         <span class="font-display text-sm font-semibold tracking-[0.08em] text-paper md:text-base">
           ED Resilience
