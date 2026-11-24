@@ -36,6 +36,10 @@ Data is kept for [To be completed: 3 years] after the last exchange, then delete
 
 This website does not use analytics or advertising cookies.
 
+## Booking a meeting
+
+Meeting bookings are handled by **Cal.com**. The calendar only loads when you click "Book a meeting". The details you enter to book (name, email, time slot) are then processed by Cal.com under its own privacy policy, and may involve cookies required for the service to work.
+
 ## Your rights
 
 Under applicable data protection law (including the GDPR for people located in the European Union), you have the right to access, rectify, erase and object to the processing of your data, and to withdraw your consent at any time. To exercise these rights, write to [Ernestia.d@edresilienceconsulting.com](mailto:Ernestia.d@edresilienceconsulting.com).

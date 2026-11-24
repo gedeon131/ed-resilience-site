@@ -1,0 +1,92 @@
+---
+/**
+ * Barre d'actions fixée en bas de l'écran sur mobile : WhatsApp, rendez-vous, devis.
+ * Remplace le bouton WhatsApp flottant sous 768 px.
+ */
+import { getBookingLink, getWhatsAppHref } from '../../config/site';
+import { getLangFromUrl, getLocalizedPath, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  /** Message WhatsApp prérempli (adapté à la page). */
+  whatsappMessage: string;
+}
+
+const { whatsappMessage } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const contact = getLocalizedPath('contact', lang);
+const whatsappHref = getWhatsAppHref(whatsappMessage);
+const booking = getBookingLink(t('actionbar.booking'), t('booking.newTab'), contact);
+
+const item =
+  'flex flex-col items-center justify-center gap-1 py-2.5 text-[0.6875rem] font-semibold tracking-[0.12em] uppercase no-underline transition-colors';
+---
+
+<nav
+  aria-label={t('actionbar.label')}
+  class="fixed inset-x-0 bottom-0 z-30 border-t border-gold-500/25 bg-navy-900 pb-[env(safe-area-inset-bottom)] md:hidden"
+>
+  <ul class="grid grid-cols-3 divide-x divide-gold-500/15" role="list">
+    {whatsappHref && (
+      <li>
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class:list={[item, 'text-navy-100 hover:text-gold-300']}
+        >
+          <svg
+            class="size-5 text-gold-300"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z" />
+            <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-1.8-1-1 .8a4 4 0 0 1-2.3-2.3l.8-1-1-1.8z" />
+          </svg>
+          {t('actionbar.whatsapp')}
+        </a>
+      </li>
+    )}
+    <li>
+      <a {...booking} class:list={[item, 'bg-gold-500 text-navy-900 hover:bg-gold-300']}>
+        <svg
+          class="size-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="3.5" y="5" width="17" height="15" rx="2" />
+          <path d="M3.5 10h17M8 3v4M16 3v4M9 14.5l2 2 4-4" />
+        </svg>
+        {t('actionbar.booking')}
+      </a>
+    </li>
+    <li>
+      <a href={`${contact}#devis`} class:list={[item, 'text-navy-100 hover:text-gold-300']}>
+        <svg
+          class="size-5 text-gold-300"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+          <path d="M14 3v5h5M9 13h6M9 17h4" />
+        </svg>
+        {t('actionbar.quote')}
+      </a>
+    </li>
+  </ul>
+</nav>

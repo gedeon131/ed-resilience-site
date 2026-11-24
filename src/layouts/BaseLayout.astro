@@ -3,18 +3,24 @@ import '../styles/global.css';
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import SEO from '../components/layout/SEO.astro';
+import BookingModal from '../components/layout/BookingModal.astro';
+import MobileActionBar from '../components/layout/MobileActionBar.astro';
 import WhatsAppButton from '../components/layout/WhatsAppButton.astro';
-import { getLangFromUrl } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   title: string;
   description: string;
   /** Header transparent superposé au hero, qui devient opaque au défilement (accueil). */
   headerOverlay?: boolean;
+  /** Message WhatsApp prérempli, adapté à la page (par défaut : message général). */
+  whatsappMessage?: string;
 }
 
-const { title, description, headerOverlay = false } = Astro.props;
+const { title, description, headerOverlay = false, whatsappMessage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const message = whatsappMessage ?? t('whatsapp.message');
 ---
 
 <!doctype html>
@@ -28,13 +34,15 @@ const lang = getLangFromUrl(Astro.url);
       document.documentElement.classList.add('js');
     </script>
   </head>
-  <body class="flex min-h-screen flex-col">
+  <body class="flex min-h-screen flex-col pb-[calc(3.75rem+env(safe-area-inset-bottom))] md:pb-0">
     <Header overlay={headerOverlay} />
     <main id="contenu" tabindex="-1" class="flex-1 focus:outline-none">
       <slot />
     </main>
     <Footer />
-    <WhatsAppButton />
+    <WhatsAppButton message={message} />
+    <MobileActionBar whatsappMessage={message} />
+    <BookingModal />
     <script>
       // Apparition douce des blocs [data-reveal] lorsqu'ils entrent à l'écran
       const blocks = document.querySelectorAll<HTMLElement>('[data-reveal]');

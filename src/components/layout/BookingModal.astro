@@ -1,0 +1,67 @@
+---
+/**
+ * Fenêtre de réservation Cal.com : un clic sur un lien [data-booking] ouvre l'agenda par-dessus
+ * le site au lieu d'un nouvel onglet. Le script Cal.com n'est chargé qu'au premier clic.
+ * S'il ne se charge pas (réseau, bloqueur), Cal.com s'ouvre dans un nouvel onglet.
+ */
+---
+
+<script>
+  const EMBED_SRC = 'https://app.cal.com/embed/embed.js';
+
+  type CalApi = ((...args: unknown[]) => void) & {
+    loaded?: boolean;
+    ns?: Record<string, unknown>;
+    q?: unknown[][];
+  };
+
+  let cal: CalApi | undefined;
+
+  function loadCal(onError: () => void): CalApi {
+    const w = window as unknown as { Cal?: CalApi };
+    // Chargeur officiel Cal.com : les appels sont mis en file d'attente jusqu'au chargement du script
+    const api: CalApi = function (...args: unknown[]) {
+      const self = w.Cal!;
+      if (!self.loaded) {
+        self.ns = {};
+        self.q = self.q || [];
+        const script = document.createElement('script');
+        script.src = EMBED_SRC;
+        script.async = true;
+        script.addEventListener('error', onError, { once: true });
+        document.head.appendChild(script);
+        self.loaded = true;
+      }
+      self.q!.push(args);
+    };
+    w.Cal = w.Cal ?? api;
+
+    const brand = getComputedStyle(document.documentElement)
+      .getPropertyValue('--color-navy-700')
+      .trim();
+    w.Cal('init', { origin: 'https://cal.com' });
+    w.Cal('ui', {
+      theme: 'light',
+      layout: 'month_view',
+      hideEventTypeDetails: false,
+      ...(brand && {
+        cssVarsPerTheme: { light: { 'cal-brand': brand }, dark: { 'cal-brand': brand } },
+      }),
+    });
+    return w.Cal;
+  }
+
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[data-booking]');
+    // Ctrl/Cmd/Maj + clic ou clic du milieu : on laisse le navigateur ouvrir un onglet
+    if (!link || event.defaultPrevented || event.button !== 0) return;
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+
+    event.preventDefault();
+    const openInTab = () => window.open(link.href, '_blank', 'noopener');
+    cal ??= loadCal(openInTab);
+    // Une seule fenêtre à la fois : on retire celles déjà fermées avant d'en ouvrir une nouvelle
+    document.querySelectorAll('cal-modal-box').forEach((box) => box.remove());
+    cal('modal', { calLink: link.dataset.booking, config: { layout: 'month_view' } });
+  });
+</script>

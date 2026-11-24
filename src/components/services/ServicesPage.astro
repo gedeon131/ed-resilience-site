@@ -5,6 +5,7 @@
 import Approach from './Approach.astro';
 import ServiceList from './ServiceList.astro';
 import CallToAction from '../ui/CallToAction.astro';
+import Faq from '../ui/Faq.astro';
 import PageHeader from '../ui/PageHeader.astro';
 import Section from '../ui/Section.astro';
 import { getLocalizedEntries } from '../../lib/content';
@@ -33,5 +34,7 @@ const services = await getLocalizedEntries('services', lang);
 </Section>
 
 <Approach tone="tint" />
+
+<Faq items={['mission', 'delais', 'international', 'format', 'confidentialite']} />
 
 <CallToAction />

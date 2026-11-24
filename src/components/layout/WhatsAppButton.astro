@@ -2,9 +2,15 @@
 import { getWhatsAppHref } from '../../config/site';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
+interface Props {
+  /** Message prérempli (adapté à la page). */
+  message: string;
+}
+
+const { message } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const href = getWhatsAppHref(t('whatsapp.message'));
+const href = getWhatsAppHref(message);
 ---
 
 {href && (
@@ -14,7 +20,7 @@ const href = getWhatsAppHref(t('whatsapp.message'));
     rel="noopener noreferrer"
     aria-label={t('whatsapp.label')}
     title={t('whatsapp.label')}
-    class="fixed right-4 bottom-4 z-30 inline-flex size-14 items-center justify-center rounded-full bg-navy-700 text-gold-300 shadow-lg ring-1 ring-gold-500/50 transition-colors hover:bg-navy-500 hover:text-paper md:right-6 md:bottom-6"
+    class="fixed right-4 bottom-4 z-30 hidden size-14 items-center justify-center rounded-full bg-navy-700 text-gold-300 shadow-lg ring-1 ring-gold-500/50 transition-colors hover:bg-navy-500 hover:text-paper md:right-6 md:bottom-6 md:inline-flex"
   >
     <svg
       class="size-7"

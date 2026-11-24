@@ -5,6 +5,7 @@
  */
 import ContactForm from '../forms/ContactForm.astro';
 import QuoteForm from '../forms/QuoteForm.astro';
+import Faq from '../ui/Faq.astro';
 import PageHeader from '../ui/PageHeader.astro';
 import {
   bookingUrl,
@@ -152,3 +153,5 @@ const channelLink =
     </div>
   </div>
 </section>
+
+<Faq items={['devis', 'delais', 'international', 'format']} showContact={false} />

@@ -36,6 +36,10 @@ Les données sont conservées pendant [À compléter : 3 ans] après le dernier 
 
 Ce site n'utilise pas de cookies de mesure d'audience ni de cookies publicitaires.
 
+## Prise de rendez-vous
+
+La prise de rendez-vous est assurée par **Cal.com**. L'agenda ne se charge que lorsque vous cliquez sur « Prendre rendez-vous ». Les informations saisies pour réserver (nom, e-mail, créneau) sont alors traitées par Cal.com, selon sa propre politique de confidentialité, et peuvent s'accompagner de cookies nécessaires à son fonctionnement.
+
 ## Vos droits
 
 Conformément à la réglementation applicable en matière de protection des données (notamment le RGPD pour les personnes situées dans l'Union européenne), vous disposez d'un droit d'accès, de rectification, d'effacement et d'opposition, ainsi que du droit de retirer votre consentement à tout moment. Pour les exercer, écrivez-nous à [Ernestia.d@edresilienceconsulting.com](mailto:Ernestia.d@edresilienceconsulting.com).

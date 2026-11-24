@@ -20,6 +20,8 @@ Claude Code met cette liste à jour à chaque texte ou image provisoire ajouté.
 - [ ] Phrase de présentation du footer (`footer.description` dans `src/i18n/fr.json` et `en.json`, texte provisoire)
 - [ ] À propos : mission, vision, 4 valeurs (Rigueur, Engagement, Proximité, Impact), rôle et biographie de la fondatrice (`about.*`, `value.*`), provisoires
 - [ ] Contact : tranches de budget du formulaire de devis (devise USD et montants à valider)
+- [ ] FAQ (pages Services et Contact) : 6 questions-réponses provisoires dans `faq.*` (déroulé d'une mission, délais, hors d'Haïti, devis, distance, confidentialité), à valider
+- [ ] Logo : emblème « ED » redessiné en SVG (`src/components/ui/LogoMark.astro`) d'après le JPEG, à faire valider ou à remplacer par le logo vectoriel officiel
 - [ ] Confidentialité : durée de conservation des données (3 ans proposé) et outil d'automatisation (n8n ou Make)
 
 ## Visuels

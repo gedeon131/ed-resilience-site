@@ -26,17 +26,29 @@ export function getWhatsAppHref(message: string): string {
 export const bookingUrl: string =
   import.meta.env.PUBLIC_BOOKING_URL || 'https://cal.com/gedeon-freycinet-eobavh/30min';
 
+/** Chemin Cal.com (ex. « equipe/30min ») utilisé par la fenêtre de réservation intégrée. */
+export const calLink: string = (() => {
+  try {
+    const url = new URL(bookingUrl);
+    return url.hostname.endsWith('cal.com') ? url.pathname.replace(/^\/|\/$/g, '') : '';
+  } catch {
+    return '';
+  }
+})();
+
 /**
- * Attributs d'un lien « Prendre rendez-vous » : ouvre Cal.com dans un nouvel onglet,
- * ou renvoie vers la page Contact si aucun lien de réservation n'est configuré.
+ * Attributs d'un lien « Prendre rendez-vous ».
+ * Avec JavaScript, le clic ouvre l'agenda Cal.com dans une fenêtre sur le site (voir BookingModal ; attribut data-booking et non data-cal-link, que le script Cal.com intercepterait aussi) ;
+ * sans JavaScript, le lien ouvre Cal.com dans un nouvel onglet. Sans lien de réservation : page Contact.
  */
-export function getBookingLink(label: string, newTabHint: string, fallbackHref: string) {
+export function getBookingLink(label: string, hint: string, fallbackHref: string) {
   return bookingUrl
     ? {
         href: bookingUrl,
         target: '_blank',
         rel: 'noopener noreferrer',
-        'aria-label': `${label} ${newTabHint}`,
+        'aria-label': `${label} ${hint}`,
+        'data-booking': calLink || undefined,
       }
     : { href: fallbackHref };
 }
